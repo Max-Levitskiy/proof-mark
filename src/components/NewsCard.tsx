@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { CategoryBadge } from "@/components/CategoryBadge";
 import { TrustScoreBadge } from "./TrustScoreBadge";
 import { Image } from "@/components/Image";
 import { Sparkles } from "lucide-react";
@@ -35,9 +35,7 @@ export function NewsCard({
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
           />
           <div className="absolute top-3 left-3">
-            <Badge variant="secondary" className="bg-background/80 backdrop-blur-sm">
-              #{category}
-            </Badge>
+            <CategoryBadge category={category} showHashtag={true} />
           </div>
           <div className="absolute top-3 right-3" onClick={(e) => e.stopPropagation()}>
             <TrustScoreBadge

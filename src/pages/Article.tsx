@@ -1,9 +1,9 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArticleDetail } from '@/modules/ArticleDetail'
 import { TrustScoreModal } from '@/modules/TrustScoreModal'
 import { Loader } from '@/components/Loader'
-import { fetchNewsById, NewsArticle } from '@/api/news'
+import { useNewsById } from '@/api/news'
 import { useModal } from '@/hooks/useModal'
 import { TrustScoreModalData } from '@/types/modal'
 
@@ -11,36 +11,26 @@ export function Article() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
 
-  const [article, setArticle] = useState<NewsArticle | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-
   const trustScoreModal = useModal<TrustScoreModalData>({
     score: 0,
     explanation: '',
     headline: '',
   })
 
+  // Fetch article with TanStack Query
+  const { data: article, isLoading } = useNewsById(id || '')
+
+  // Redirect to 404 if no ID or article not found
   useEffect(() => {
-    const loadArticle = async () => {
-      if (!id) {
-        navigate('/')
-        return
-      }
-
-      setIsLoading(true)
-      const data = await fetchNewsById(id)
-
-      if (!data) {
-        navigate('/')
-        return
-      }
-
-      setArticle(data)
-      setIsLoading(false)
+    if (!id) {
+      navigate('/404', { replace: true })
+      return
     }
 
-    loadArticle()
-  }, [id, navigate])
+    if (!isLoading && !article) {
+      navigate('/404', { replace: true })
+    }
+  }, [id, article, isLoading, navigate])
 
   const handleBackToHome = useCallback(() => {
     navigate('/')

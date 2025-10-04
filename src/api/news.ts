@@ -1,4 +1,11 @@
-// Types
+import { useQuery } from '@tanstack/react-query'
+import { supabase } from '@/lib/supabase'
+import { Tables } from '@/types/supabase'
+
+// Database row type
+type NewsArticleRow = Tables<'news_articles'>
+
+// Extended type for frontend use
 export interface NewsArticle {
   id: string
   headline: string
@@ -25,60 +32,91 @@ export interface NewsArticle {
   }
 }
 
-// Mock data provider - easily replaceable with API
-const MOCK_ARTICLES: NewsArticle[] = [
-  {
-    id: '1',
-    headline: 'Global Climate Summit Reaches Historic Agreement on Carbon Reduction',
-    description: 'World leaders agree on ambitious targets to cut emissions by 50% within the next decade',
-    category: 'climate',
-    image: 'https://images.unsplash.com/photo-1687610877269-9c051d3d254e',
-    author: 'Sarah Chen',
-    location: 'Geneva, Switzerland',
-    publishedAt: '2025-01-04T10:30:00Z',
-    readTime: '4 min read',
-    trustScore: 87,
-    trustExplanation: 'High credibility with verified sources',
-    content: 'Full article content here...',
-    sourcesVerified: 15,
-    flags: [
-      'Multiple independent sources confirm the agreement',
-      'Official statements from government representatives',
-      'No misleading claims or bias indicators detected',
-      'Facts cross-referenced with climate science data',
-    ],
-    detailedAnalysis: {
-      credibilityScore: 87,
-      sourceReliability: 'High',
-      factualAccuracy: 'Verified',
-      biasIndicators: 'Minimal',
-      recommendation:
-        'This article demonstrates high credibility with strong factual foundation and multiple verifiable sources.',
-    },
-  },
-]
+// Transform database row to NewsArticle
+function transformNewsArticle(row: NewsArticleRow): NewsArticle {
+  // Extract category from JSONB array
+  const categories = Array.isArray(row.category) ? row.category : []
+  const category = categories.length > 0 ? String(categories[0]) : ''
 
-// API placeholder functions - to be connected to Supabase
+  // Extract flags from JSONB array
+  const flags = Array.isArray(row.flags) ? (row.flags as string[]) : undefined
+
+  // Extract detailed analysis from JSONB
+  const detailedAnalysis =
+    row.detailed_analysis && typeof row.detailed_analysis === 'object'
+      ? {
+          credibilityScore:
+            Number(
+              (row.detailed_analysis as Record<string, unknown>)
+                .credibilityScore
+            ) || 0,
+          sourceReliability: String(
+            (row.detailed_analysis as Record<string, unknown>)
+              .sourceReliability || ''
+          ),
+          factualAccuracy: String(
+            (row.detailed_analysis as Record<string, unknown>)
+              .factualAccuracy || ''
+          ),
+          biasIndicators: String(
+            (row.detailed_analysis as Record<string, unknown>).biasIndicators ||
+              ''
+          ),
+          recommendation: String(
+            (row.detailed_analysis as Record<string, unknown>).recommendation ||
+              ''
+          ),
+        }
+      : undefined
+
+  return {
+    id: row.id,
+    headline: row.headline,
+    description: row.description || '',
+    category,
+    image: row.image || '',
+    trustScore: row.trust_score,
+    trustExplanation: row.trust_explanation || '',
+    content: row.content || undefined,
+    author: row.author || undefined,
+    location: row.location || undefined,
+    publishedAt: row.published_at || undefined,
+    readTime: row.read_time || undefined,
+    source: row.source || undefined,
+    sourcesVerified: row.sources_verified || undefined,
+    flags,
+    detailedAnalysis,
+  }
+}
+
+// API functions using Supabase
 export async function fetchNews(): Promise<NewsArticle[]> {
-  // TODO: Replace with actual Supabase call
-  // const { data, error } = await supabase.from('news').select('*')
+  const { data, error } = await supabase
+    .from('news_articles')
+    .select('*')
+    .order('created_at', { ascending: false })
 
-  // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
+  if (error) {
+    console.error('Error fetching news:', error)
+    return []
+  }
 
-  // Return mock data for now
-  return MOCK_ARTICLES
+  return data?.map(transformNewsArticle) || []
 }
 
 export async function fetchNewsById(id: string): Promise<NewsArticle | null> {
-  // TODO: Replace with actual Supabase call
-  // const { data, error } = await supabase.from('news').select('*').eq('id', id).single()
+  const { data, error } = await supabase
+    .from('news_articles')
+    .select('*')
+    .eq('id', id)
+    .single()
 
-  // Simulate API delay
-  await new Promise((resolve) => setTimeout(resolve, 500))
+  if (error) {
+    console.error('Error fetching news by id:', error)
+    return null
+  }
 
-  // Return mock data for now
-  return MOCK_ARTICLES.find((article) => article.id === id) || null
+  return data ? transformNewsArticle(data) : null
 }
 
 export async function analyzeText(_text: string): Promise<{
@@ -94,4 +132,20 @@ export async function analyzeText(_text: string): Promise<{
     explanation: '',
     sources: [],
   }
+}
+
+// TanStack Query hooks
+export function useNews() {
+  return useQuery({
+    queryKey: ['news'],
+    queryFn: fetchNews,
+  })
+}
+
+export function useNewsById(id: string) {
+  return useQuery({
+    queryKey: ['news', id],
+    queryFn: () => fetchNewsById(id),
+    enabled: !!id,
+  })
 }

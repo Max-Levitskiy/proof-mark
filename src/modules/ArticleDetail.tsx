@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
+import { CategoryBadge } from '@/components/CategoryBadge'
+import { Separator } from '@/components/ui/separator'
 import { TrustScoreBadge } from '@/components/TrustScoreBadge'
 import {
   ArrowLeft,
@@ -9,8 +10,6 @@ import {
   MapPin,
   ExternalLink,
   Share2,
-  CheckCircle,
-  AlertTriangle,
 } from 'lucide-react'
 import { Image } from '@/components/Image'
 import { Logo } from '@/components/Logo'
@@ -60,25 +59,27 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
           <div className="lg:col-span-2">
             {/* Article Header */}
             <div className="mb-6">
-              <Badge className="mb-4">{article.category}</Badge>
+              <div className="mb-4">
+                <CategoryBadge category={article.category} showHashtag={true} />
+              </div>
               <h1 className="text-4xl font-bold mb-4">{article.headline}</h1>
 
-              <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground mb-6">
+              <div className="flex flex-wrap items-center gap-4 text-xs text-gray-500 mb-6">
                 {article.author && (
                   <div className="flex items-center">
-                    <User className="w-4 h-4 mr-1" />
+                    <User className="w-3 h-3 mr-1" />
                     {article.author}
                   </div>
                 )}
                 {article.location && (
                   <div className="flex items-center">
-                    <MapPin className="w-4 h-4 mr-1" />
+                    <MapPin className="w-3 h-3 mr-1" />
                     {article.location}
                   </div>
                 )}
                 {article.publishedAt && (
                   <div className="flex items-center">
-                    <Clock className="w-4 h-4 mr-1" />
+                    <Clock className="w-3 h-3 mr-1" />
                     {formatDate(article.publishedAt)}
                   </div>
                 )}
@@ -97,9 +98,11 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
 
             {/* Article Content */}
             <div className="prose prose-lg max-w-none prose-invert">
-              <p className="text-xl text-muted-foreground mb-6">{article.description}</p>
+              {article.description && (
+                <p className="text-xl text-gray-300 mb-6">{article.description}</p>
+              )}
               {article.content && (
-                <div className="whitespace-pre-wrap">{article.content}</div>
+                <div className="whitespace-pre-wrap text-gray-400">{article.content}</div>
               )}
             </div>
 
@@ -124,11 +127,11 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
           {/* Sidebar */}
           <div className="lg:col-span-1">
             <div className="sticky top-24 space-y-6">
-              {/* Trust Score Card */}
-              <Card>
+              {/* Credibility Score Card */}
+              <Card className="bg-card border-border">
                 <CardHeader>
-                  <CardTitle className="flex items-center justify-between">
-                    <span>Trust Score</span>
+                  <CardTitle className="flex items-center justify-between text-lg">
+                    <span>Credibility Score</span>
                     <TrustScoreBadge
                       score={article.trustScore}
                       explanation={article.trustExplanation}
@@ -143,72 +146,95 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Sources Verified</span>
-                      <span className="font-medium">{article.sourcesVerified || 0}</span>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <p className="font-medium mb-1">Source Reliability</p>
+                      <p className="text-gray-500">
+                        {article.detailedAnalysis?.sourceReliability || '--'}
+                      </p>
                     </div>
-                    {article.detailedAnalysis && (
-                      <>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Source Reliability</span>
-                          <span className="font-medium">
-                            {article.detailedAnalysis.sourceReliability}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Factual Accuracy</span>
-                          <span className="font-medium">
-                            {article.detailedAnalysis.factualAccuracy}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Bias Indicators</span>
-                          <span className="font-medium">
-                            {article.detailedAnalysis.biasIndicators}
-                          </span>
-                        </div>
-                      </>
-                    )}
+                    <div>
+                      <p className="font-medium mb-1">Factual Accuracy</p>
+                      <p className="text-gray-500">
+                        {article.detailedAnalysis?.factualAccuracy || '--'}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">Bias Indicators</p>
+                      <p className="text-gray-500">
+                        {article.detailedAnalysis?.biasIndicators || '--'}
+                      </p>
+                    </div>
+                    <div>
+                      <p className="font-medium mb-1">Sources Verified</p>
+                      <p className="text-gray-500">{article.sourcesVerified || '--'}</p>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
 
-              {/* Verification Flags */}
-              {article.flags && article.flags.length > 0 && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Verification Details</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      {article.flags.map((flag, index) => (
-                        <div key={index} className="flex items-start gap-2">
-                          <CheckCircle className="w-4 h-4 text-green-600 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm text-muted-foreground">{flag}</span>
-                        </div>
-                      ))}
+              {/* Analysis Details Card */}
+              <Card className="bg-card border-border">
+                <CardHeader>
+                  <CardTitle className="text-lg">Analysis Details</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  {article.flags && article.flags.length > 0 && (
+                    <div>
+                      <h4 className="font-medium mb-2">Key Findings</h4>
+                      <ul className="space-y-2">
+                        {article.flags.map((flag, index) => (
+                          <li key={index} className="text-sm text-gray-500 flex items-start">
+                            <div className="w-1.5 h-1.5 bg-[#0066FF] rounded-full mr-2 mt-2 flex-shrink-0" />
+                            {flag}
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                  </CardContent>
-                </Card>
-              )}
+                  )}
 
-              {/* Analysis Recommendation */}
-              {article.detailedAnalysis?.recommendation && (
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <AlertTriangle className="w-4 h-4" />
-                      AI Analysis
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-muted-foreground">
-                      {article.detailedAnalysis.recommendation}
+                  {article.detailedAnalysis?.recommendation && (
+                    <>
+                      <Separator className="my-4 bg-gray-700" />
+                      <div>
+                        <h4 className="font-medium mb-2">Recommendation</h4>
+                        <p className="text-sm text-gray-500">
+                          {article.detailedAnalysis.recommendation}
+                        </p>
+                      </div>
+                    </>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Methodology Card */}
+              <Card className="bg-card border-border">
+                <CardHeader>
+                  <CardTitle className="text-lg">Analysis Methodology</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3 text-sm">
+                  <div>
+                    <h5 className="font-medium mb-1">Source Verification</h5>
+                    <p className="text-gray-500">
+                      Cross-referenced with {article.sourcesVerified || 0} independent sources including government databases, academic papers, and verified news outlets.
                     </p>
-                  </CardContent>
-                </Card>
-              )}
+                  </div>
+
+                  <div>
+                    <h5 className="font-medium mb-1">Bias Detection</h5>
+                    <p className="text-gray-500">
+                      AI analysis of language patterns, fact-checking against known databases, and sentiment analysis.
+                    </p>
+                  </div>
+
+                  <div>
+                    <h5 className="font-medium mb-1">Credibility Scoring</h5>
+                    <p className="text-gray-500">
+                      Composite score based on source reliability, factual accuracy, and bias indicators using ProofMark's proprietary algorithm.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>

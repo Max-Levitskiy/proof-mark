@@ -107,7 +107,7 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
             </p>
           </div>
 
-          <Separator className="my-6" />
+          <Separator className="my-6 bg-gray-200" />
 
           {/* AI Analysis Details */}
           <div className="space-y-3">
@@ -117,7 +117,7 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
             </p>
           </div>
 
-          <Separator className="my-6" />
+          <Separator className="my-6 bg-gray-200" />
 
           {/* Score Scale Reference */}
           <div className="space-y-3">
@@ -161,12 +161,12 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
             </div>
           </div>
 
-          <Separator className="my-6" />
+          <Separator className="my-6 bg-gray-200" />
 
           {/* Footer */}
           <div>
             <p className="text-xs text-gray-600 text-center">
-              AI Analysis • Updated 2 minutes ago
+              AI-Powered Analysis
             </p>
           </div>
         </div>

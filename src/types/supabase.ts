@@ -16,6 +16,7 @@ export type Database = {
     Tables: {
       content_embeddings: {
         Row: {
+          chunk_index: number | null
           cluster_id: number | null
           cluster_prob: number | null
           content: string
@@ -26,20 +27,24 @@ export type Database = {
           metadata: Json | null
           outlier_score: number | null
           raw_content: string | null
+          total_chunks: number | null
         }
         Insert: {
+          chunk_index?: number | null
           cluster_id?: number | null
           cluster_prob?: number | null
           content: string
           created_at?: string | null
           embedding?: string | null
-          id: string
+          id?: string
           key?: string | null
           metadata?: Json | null
           outlier_score?: number | null
           raw_content?: string | null
+          total_chunks?: number | null
         }
         Update: {
+          chunk_index?: number | null
           cluster_id?: number | null
           cluster_prob?: number | null
           content?: string
@@ -50,6 +55,70 @@ export type Database = {
           metadata?: Json | null
           outlier_score?: number | null
           raw_content?: string | null
+          total_chunks?: number | null
+        }
+        Relationships: []
+      }
+      news_articles: {
+        Row: {
+          author: string | null
+          category: Json
+          content: string | null
+          created_at: string
+          description: string | null
+          detailed_analysis: Json | null
+          flags: Json | null
+          headline: string
+          id: string
+          image: string | null
+          location: string | null
+          published_at: string | null
+          read_time: string | null
+          source: string | null
+          sources_verified: number | null
+          trust_explanation: string | null
+          trust_score: number
+          updated_at: string
+        }
+        Insert: {
+          author?: string | null
+          category?: Json
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          detailed_analysis?: Json | null
+          flags?: Json | null
+          headline: string
+          id?: string
+          image?: string | null
+          location?: string | null
+          published_at?: string | null
+          read_time?: string | null
+          source?: string | null
+          sources_verified?: number | null
+          trust_explanation?: string | null
+          trust_score: number
+          updated_at?: string
+        }
+        Update: {
+          author?: string | null
+          category?: Json
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          detailed_analysis?: Json | null
+          flags?: Json | null
+          headline?: string
+          id?: string
+          image?: string | null
+          location?: string | null
+          published_at?: string | null
+          read_time?: string | null
+          source?: string | null
+          sources_verified?: number | null
+          trust_explanation?: string | null
+          trust_score?: number
+          updated_at?: string
         }
         Relationships: []
       }
@@ -95,6 +164,33 @@ export type Database = {
           id?: number
           last_updated?: string | null
           size?: number | null
+        }
+        Relationships: []
+      }
+      users: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
         }
         Relationships: []
       }

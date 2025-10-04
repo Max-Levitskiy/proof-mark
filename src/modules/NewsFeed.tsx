@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { NewsCard } from "@/components/NewsCard";
-import { fetchNews, NewsArticle } from "@/api/news";
+import { useNews } from "@/api/news";
 
 interface NewsFeedProps {
   onNewsCardClick: (id: string) => void;
@@ -12,19 +12,9 @@ export function NewsFeed({ onNewsCardClick, onDetailedAnalysis, onTrustScoreClic
   const scrollRef = useRef<HTMLDivElement>(null);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [newsItems, setNewsItems] = useState<NewsArticle[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  // Load news from API
-  useEffect(() => {
-    const loadNews = async () => {
-      setIsLoading(true);
-      const articles = await fetchNews();
-      setNewsItems(articles);
-      setIsLoading(false);
-    };
-    loadNews();
-  }, []);
+  // Fetch news with TanStack Query
+  const { data: newsItems = [], isLoading } = useNews();
 
   // Don't render if no news
   if (!isLoading && newsItems.length === 0) {
