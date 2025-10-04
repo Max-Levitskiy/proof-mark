@@ -36,14 +36,14 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
+      <div className="sticky top-0 z-50 bg-background/80 backdrop-blur-md border-b border-gray-200">
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-6">
               <Logo />
               <Button
                 variant="ghost"
-                className="text-muted-foreground hover:text-foreground"
+                className="text-muted-foreground hover:text-foreground hover:bg-gray-800/50"
                 onClick={onBack}
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -104,7 +104,7 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
             </div>
 
             {/* Share Section */}
-            <div className="mt-8 pt-8 border-t border-border">
+            <div className="mt-8 pt-8 border-t border-gray-800">
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">Share this article</h3>
                 <div className="flex gap-2">

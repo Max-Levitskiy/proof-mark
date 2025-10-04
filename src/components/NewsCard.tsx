@@ -31,11 +31,11 @@ export function NewsCard({
   onTrustScoreClick
 }: NewsCardProps) {
   return (
-    <Card className="flex-shrink-0 w-80 bg-card border border-border hover:border-[#0066FF]/30 transition-all duration-300 hover:shadow-lg group cursor-pointer">
-      <CardContent className="p-0" onClick={() => onCardClick(id)}>
+    <Card className="flex-shrink-0 w-80 bg-card hover:border-blue-600/30 transition-all duration-300 hover:shadow-lg group overflow-hidden gap-0">
+      <CardContent className="p-0 !pb-0">
         {/* Image */}
-        <div className="relative overflow-hidden rounded-t-lg">
-          <Image 
+        <div className="relative overflow-hidden cursor-pointer" onClick={() => onCardClick(id)}>
+          <Image
             src={image}
             alt={headline}
             className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
@@ -46,8 +46,8 @@ export function NewsCard({
             </Badge>
           </div>
           <div className="absolute top-3 right-3" onClick={(e) => e.stopPropagation()}>
-            <TrustScoreBadge 
-              score={trustScore} 
+            <TrustScoreBadge
+              score={trustScore}
               explanation={trustExplanation}
               onOpenModal={() => onTrustScoreClick(trustScore, trustExplanation, headline)}
             />
@@ -55,22 +55,24 @@ export function NewsCard({
         </div>
 
         {/* Content */}
-        <div className="p-4 space-y-3">
-          <h3 className="font-semibold leading-tight line-clamp-2 group-hover:text-[#0066FF] transition-colors">
-            {headline}
-          </h3>
-          
-          <p className="text-sm text-muted-foreground line-clamp-2 leading-relaxed">
-            {description}
-          </p>
+        <div className="px-4 pt-4 pb-3 space-y-3">
+          <div className="cursor-pointer" onClick={() => onCardClick(id)}>
+            <h3 className="font-semibold leading-tight line-clamp-2 hover:text-[#0066FF] transition-colors">
+              {headline}
+            </h3>
 
-          <div className="flex items-center justify-between pt-2">
+            <p className="text-sm text-gray-500 line-clamp-2 leading-relaxed mt-3">
+              {description}
+            </p>
+          </div>
+
+          <div className="flex items-center justify-between pt-1">
             <div className="flex items-center text-xs text-muted-foreground">
               <span>2 hours ago</span>
             </div>
-            
-            <Button 
-              size="sm" 
+
+            <Button
+              size="sm"
               onClick={(e) => {
                 e.stopPropagation();
                 onDetailedAnalysis(id, headline);

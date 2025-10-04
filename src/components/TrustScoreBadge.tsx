@@ -26,12 +26,12 @@ export function TrustScoreBadge({ score, onOpenModal }: TrustScoreBadgeProps) {
 
 
   return (
-    <Button 
-      variant="ghost" 
+    <Button
+      variant="ghost"
       className="p-0 h-auto hover:bg-transparent"
       onClick={onOpenModal}
     >
-      <Badge className={`${getScoreColor(score)} text-white hover:opacity-80 cursor-pointer transition-opacity`}>
+      <Badge className={`${getScoreColor(score)} text-white hover:opacity-80 cursor-pointer transition-opacity border-0`}>
         <span>{getScoreRank(score)} ({score})</span>
         <Info className="w-3 h-3 ml-1" />
       </Badge>

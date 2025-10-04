@@ -38,7 +38,7 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md bg-card border border-border">
+      <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2">
             <Zap className="w-5 h-5 text-[#0066FF]" />
@@ -51,15 +51,15 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
         {!isSubmitted ? (
           <div className="space-y-4">
-            <Card className="bg-gradient-to-br from-[#0066FF]/10 to-[#0066FF]/5 border border-[#0066FF]/20">
+            <Card className="bg-gradient-to-br from-blue-600/10 to-blue-600/5 border-blue-600/20">
               <CardContent className="p-4">
                 <div className="flex items-start space-x-3">
                   <div className="w-8 h-8 bg-[#0066FF] rounded-full flex items-center justify-center flex-shrink-0">
                     <Zap className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1">Advanced Features Coming Soon</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-semibold mb-1 text-gray-900">Advanced Features Coming Soon</h4>
+                    <p className="text-sm text-gray-600">
                       Deep Research mode will provide comprehensive fact-checking, source verification, and bias analysis.
                     </p>
                   </div>
@@ -68,15 +68,15 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
             </Card>
 
             <div className="space-y-3">
-              <h4 className="font-semibold">Stay Updated</h4>
-              <p className="text-sm text-muted-foreground">
+              <h4 className="font-semibold text-gray-900">Stay Updated</h4>
+              <p className="text-sm text-gray-600">
                 Subscribe to get notified when Deep Research and other advanced features become available.
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email" className="text-gray-900">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
@@ -84,6 +84,7 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
+                  className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-400"
                 />
               </div>
 
@@ -97,7 +98,7 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
               </Button>
             </form>
 
-            <p className="text-xs text-muted-foreground text-center">
+            <p className="text-xs text-gray-600 text-center">
               We'll only send you updates about new features. No spam, unsubscribe anytime.
             </p>
           </div>
@@ -108,9 +109,9 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
             </div>
             
             <div className="space-y-2">
-              <h4 className="font-semibold">You're All Set!</h4>
-              <p className="text-sm text-muted-foreground">
-                We'll notify you at <strong>{email}</strong> when Deep Research mode is available.
+              <h4 className="font-semibold text-gray-900">You're All Set!</h4>
+              <p className="text-sm text-gray-600">
+                We'll notify you at <strong className="text-gray-900">{email}</strong> when Deep Research mode is available.
               </p>
             </div>
 

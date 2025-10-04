@@ -160,7 +160,7 @@ export function HomePage() {
           />
         </section>
 
-        <footer className="border-t border-border bg-card/50">
+        <footer className="border-t border-gray-800 bg-card/50">
           <div className="container mx-auto px-6 py-12">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               <div className="space-y-4">
@@ -203,7 +203,7 @@ export function HomePage() {
               </div>
             </div>
 
-            <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+            <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
               <p className="text-sm text-muted-foreground">
                 © 2025 ProofMark. All rights reserved.
               </p>

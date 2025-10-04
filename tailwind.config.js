@@ -1,3 +1,5 @@
+import colors from 'tailwindcss/colors';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -12,6 +14,14 @@ export default {
         sm: 'calc(var(--radius) - 4px)',
       },
       colors: {
+        // Preserve default Tailwind colors
+        gray: colors.gray,
+        red: colors.red,
+        yellow: colors.yellow,
+        green: colors.green,
+        blue: colors.blue,
+
+        // Custom shadcn colors
         background: 'var(--background)',
         foreground: 'var(--foreground)',
         card: {

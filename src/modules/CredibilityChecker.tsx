@@ -95,7 +95,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
         </p>
       </div>
 
-      <Card className="bg-card border border-border">
+      <Card className="bg-card border border-gray-800">
         <CardHeader>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
             <CardTitle className="text-xl">News Content Analysis</CardTitle>
@@ -162,7 +162,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
 
       {/* Analysis Results */}
       {isAnalyzing && (
-        <Card className="bg-card border border-border">
+        <Card className="bg-card border border-gray-800">
           <CardContent className="p-6">
             <div className="flex items-center space-x-3">
               <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#0066FF]"></div>
@@ -217,7 +217,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                   </button>
                   
                   {activeTooltip === -1 && (
-                    <div className="absolute left-0 top-6 w-80 bg-popover border border-border rounded-lg p-4 shadow-lg z-50">
+                    <div className="absolute left-0 top-6 w-80 bg-popover border border-gray-800 rounded-lg p-4 shadow-lg z-50">
                       <div className="space-y-2">
                         <h4 className="font-semibold text-sm text-foreground">ProofMark Trust Score</h4>
                         <div className="text-xs text-muted-foreground leading-relaxed space-y-2">
@@ -231,7 +231,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                           </div>
                         </div>
                       </div>
-                      <div className="absolute -top-1 left-4 w-2 h-2 bg-popover border-l border-t border-border rotate-45"></div>
+                      <div className="absolute -top-1 left-4 w-2 h-2 bg-popover border-l border-t border-gray-800 rotate-45"></div>
                     </div>
                   )}
                 </div>
@@ -295,11 +295,11 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                       </button>
                       
                       {activeTooltip === index && (
-                        <div className="absolute right-0 top-6 w-72 bg-popover border border-border rounded-lg p-3 shadow-lg z-50">
+                        <div className="absolute right-0 top-6 w-72 bg-popover border border-gray-800 rounded-lg p-3 shadow-lg z-50">
                           <div className="text-xs text-muted-foreground leading-relaxed">
                             {factor.description}
                           </div>
-                          <div className="absolute -top-1 right-2 w-2 h-2 bg-popover border-l border-t border-border rotate-45"></div>
+                          <div className="absolute -top-1 right-2 w-2 h-2 bg-popover border-l border-t border-gray-800 rotate-45"></div>
                         </div>
                       )}
                     </div>

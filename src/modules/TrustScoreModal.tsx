@@ -1,6 +1,7 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 import { CheckCircle, AlertCircle, XCircle } from "lucide-react";
 
 interface TrustScoreModalProps {
@@ -72,22 +73,22 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
         <div className="space-y-6">
           {/* News Headline */}
           {newsHeadline && (
-            <div className="p-3 bg-muted rounded-lg">
-              <h4 className="text-sm font-medium mb-1">Analyzing:</h4>
-              <p className="text-sm text-muted-foreground">{newsHeadline}</p>
+            <div className="p-3 bg-gray-100 rounded-lg">
+              <h4 className="text-sm font-medium mb-1 text-gray-900">Analyzing:</h4>
+              <p className="text-sm text-gray-600">{newsHeadline}</p>
             </div>
           )}
 
           {/* Score Display */}
           <div className="text-center space-y-4">
             <div className="flex items-center justify-center">
-              <Badge className={`${getScoreColor(score)} text-white px-4 py-2 text-lg`}>
+              <Badge className={`${getScoreColor(score)} text-white px-4 py-2 text-lg border-0`}>
                 {getScoreRank(score)} ({score})
               </Badge>
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between text-sm">
+              <div className="flex justify-between text-sm text-gray-900">
                 <span>Trust Score</span>
                 <span>{score}/100</span>
               </div>
@@ -99,66 +100,72 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               {scoreInfo.icon}
-              <h3 className="font-semibold">{scoreInfo.title}</h3>
+              <h3 className="font-semibold text-gray-900">{scoreInfo.title}</h3>
             </div>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+            <p className="text-sm text-gray-600 leading-relaxed">
               {scoreInfo.description}
             </p>
           </div>
 
+          <Separator className="my-6" />
+
           {/* AI Analysis Details */}
-          <div className="border-t pt-4 space-y-3">
-            <h4 className="font-medium text-sm">AI Analysis Details</h4>
-            <p className="text-sm text-muted-foreground leading-relaxed">
+          <div className="space-y-3">
+            <h4 className="font-medium text-sm text-gray-900">AI Analysis Details</h4>
+            <p className="text-sm text-gray-600 leading-relaxed">
               {explanation}
             </p>
           </div>
 
+          <Separator className="my-6" />
+
           {/* Score Scale Reference */}
-          <div className="border-t pt-4 space-y-3">
-            <h4 className="font-medium text-sm">Trust Score Scale</h4>
+          <div className="space-y-3">
+            <h4 className="font-medium text-sm text-gray-900">Trust Score Scale</h4>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 text-gray-900">
                   <div className="w-3 h-3 bg-green-600 rounded"></div>
                   AAA (80-100)
                 </span>
-                <span className="text-muted-foreground">Exceptional</span>
+                <span className="text-gray-600">Exceptional</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 text-gray-900">
                   <div className="w-3 h-3 bg-green-600 rounded"></div>
                   AA (60-79)
                 </span>
-                <span className="text-muted-foreground">High</span>
+                <span className="text-gray-600">High</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 text-gray-900">
                   <div className="w-3 h-3 bg-yellow-600 rounded"></div>
                   A (40-59)
                 </span>
-                <span className="text-muted-foreground">Moderate</span>
+                <span className="text-gray-600">Moderate</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 text-gray-900">
                   <div className="w-3 h-3 bg-yellow-600 rounded"></div>
                   B (20-39)
                 </span>
-                <span className="text-muted-foreground">Low</span>
+                <span className="text-gray-600">Low</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 text-gray-900">
                   <div className="w-3 h-3 bg-red-600 rounded"></div>
                   C (0-19)
                 </span>
-                <span className="text-muted-foreground">Poor</span>
+                <span className="text-gray-600">Poor</span>
               </div>
             </div>
           </div>
 
+          <Separator className="my-6" />
+
           {/* Footer */}
-          <div className="border-t pt-3">
-            <p className="text-xs text-muted-foreground text-center">
+          <div>
+            <p className="text-xs text-gray-600 text-center">
               AI Analysis • Updated 2 minutes ago
             </p>
           </div>
