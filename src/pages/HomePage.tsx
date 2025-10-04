@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import { Header } from '@/components/Header'
 import { VideoPlayer } from '@/components/VideoPlayer'
 import { AnimatedBackground } from '@/components/AnimatedBackground'
@@ -9,112 +9,77 @@ import { SignUpModal } from '@/modules/SignUpModal'
 import { TrustScoreModal } from '@/modules/TrustScoreModal'
 import { Logo } from '@/components/Logo'
 import { useNavigate } from 'react-router-dom'
+import { useModal } from '@/hooks/useModal'
+import { TrustScoreModalData, DetailedAnalysisModalData } from '@/types/modal'
+import { User } from '@/types/user'
 
-interface User {
-  isSignedIn: boolean
-  name: string
-  email: string
-  avatar: string
+const INITIAL_USER: User = {
+  isSignedIn: false,
+  name: '',
+  email: '',
+  avatar: '',
+}
+
+const MOCK_USER: User = {
+  isSignedIn: true,
+  name: 'John Doe',
+  email: 'john.doe@example.com',
+  avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
 }
 
 export function HomePage() {
   const navigate = useNavigate()
 
-  const [user, setUser] = useState<User>({
-    isSignedIn: false,
-    name: '',
-    email: '',
-    avatar: '',
-  })
+  const [user, setUser] = useState<User>(INITIAL_USER)
+  const [signUpModalOpen, setSignUpModalOpen] = useState(false)
 
-  const [detailedAnalysisModal, setDetailedAnalysisModal] = useState<{
-    isOpen: boolean
-    newsId: string
-    headline: string
-  }>({
-    isOpen: false,
+  const detailedAnalysisModal = useModal<DetailedAnalysisModalData>({
     newsId: '',
     headline: '',
   })
 
-  const [signUpModalOpen, setSignUpModalOpen] = useState(false)
-
-  const [trustScoreModal, setTrustScoreModal] = useState<{
-    isOpen: boolean
-    score: number
-    explanation: string
-    headline: string
-  }>({
-    isOpen: false,
+  const trustScoreModal = useModal<TrustScoreModalData>({
     score: 0,
     explanation: '',
     headline: '',
   })
 
-  const handleNewsCardClick = (newsId: string) => {
-    navigate(`/article/${newsId}`)
-  }
+  const handleNewsCardClick = useCallback(
+    (newsId: string) => {
+      navigate(`/article/${newsId}`)
+    },
+    [navigate]
+  )
 
-  const handleDetailedAnalysis = (newsId: string, headline: string) => {
-    setDetailedAnalysisModal({
-      isOpen: true,
-      newsId,
-      headline,
-    })
-  }
+  const handleDetailedAnalysis = useCallback(
+    (newsId: string, headline: string) => {
+      detailedAnalysisModal.open({ newsId, headline })
+    },
+    [detailedAnalysisModal]
+  )
 
-  const handleCloseDetailedAnalysis = () => {
-    setDetailedAnalysisModal({
-      isOpen: false,
-      newsId: '',
-      headline: '',
-    })
-  }
-
-  const handleDeepResearchToggle = () => {
+  const handleDeepResearchToggle = useCallback(() => {
     setSignUpModalOpen(true)
-  }
+  }, [])
 
-  const handleTrustScoreClick = (
-    score: number,
-    explanation: string,
-    headline: string
-  ) => {
-    setTrustScoreModal({
-      isOpen: true,
-      score,
-      explanation,
-      headline,
-    })
-  }
+  const handleTrustScoreClick = useCallback(
+    (score: number, explanation: string, headline: string) => {
+      trustScoreModal.open({ score, explanation, headline })
+    },
+    [trustScoreModal]
+  )
 
-  const handleCloseTrustScore = () => {
-    setTrustScoreModal({
-      isOpen: false,
-      score: 0,
-      explanation: '',
-      headline: '',
-    })
-  }
+  const handleGoogleSignIn = useCallback(() => {
+    setUser(MOCK_USER)
+  }, [])
 
-  const handleGoogleSignIn = () => {
-    setUser({
-      isSignedIn: true,
-      name: 'John Doe',
-      email: 'john.doe@example.com',
-      avatar:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-    })
-  }
+  const handleSignOut = useCallback(() => {
+    setUser(INITIAL_USER)
+  }, [])
 
-  const handleSignOut = () => {
-    setUser({
-      isSignedIn: false,
-      name: '',
-      email: '',
-      avatar: '',
-    })
-  }
+  const handleCloseSignUpModal = useCallback(() => {
+    setSignUpModalOpen(false)
+  }, [])
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -218,22 +183,19 @@ export function HomePage() {
       </main>
 
       <DetailedAnalysisModal
-        isOpen={detailedAnalysisModal.isOpen}
-        onClose={handleCloseDetailedAnalysis}
-        newsHeadline={detailedAnalysisModal.headline}
+        isOpen={detailedAnalysisModal.state.isOpen}
+        onClose={detailedAnalysisModal.close}
+        newsHeadline={detailedAnalysisModal.state.data.headline}
       />
 
-      <SignUpModal
-        isOpen={signUpModalOpen}
-        onClose={() => setSignUpModalOpen(false)}
-      />
+      <SignUpModal isOpen={signUpModalOpen} onClose={handleCloseSignUpModal} />
 
       <TrustScoreModal
-        isOpen={trustScoreModal.isOpen}
-        onClose={handleCloseTrustScore}
-        score={trustScoreModal.score}
-        explanation={trustScoreModal.explanation}
-        newsHeadline={trustScoreModal.headline}
+        isOpen={trustScoreModal.state.isOpen}
+        onClose={trustScoreModal.close}
+        score={trustScoreModal.state.data.score}
+        explanation={trustScoreModal.state.data.explanation}
+        newsHeadline={trustScoreModal.state.data.headline}
       />
     </div>
   )
