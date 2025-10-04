@@ -179,39 +179,41 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick, user, authLo
                 </CardContent>
               </Card>
 
-              {/* Analysis Details Card */}
-              <Card className="bg-card border-gray-800">
-                <CardHeader>
-                  <CardTitle className="text-lg">Analysis Details</CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  {article.flags && article.flags.length > 0 && (
-                    <div>
-                      <h4 className="font-medium mb-2">Key Findings</h4>
-                      <ul className="space-y-2">
-                        {article.flags.map((flag, index) => (
-                          <li key={index} className="text-sm text-gray-500 flex items-start">
-                            <div className="w-1.5 h-1.5 bg-[#0066FF] rounded-full mr-2 mt-2 flex-shrink-0" />
-                            {flag}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
-
-                  {article.detailedAnalysis?.recommendation && (
-                    <>
-                      <Separator className="my-4 bg-gray-700" />
+              {/* Analysis Details Card - only show if there's content */}
+              {((article.flags && article.flags.length > 0) || article.detailedAnalysis?.recommendation) && (
+                <Card className="bg-card border-gray-800">
+                  <CardHeader>
+                    <CardTitle className="text-lg">Analysis Details</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-3">
+                    {article.flags && article.flags.length > 0 && (
                       <div>
-                        <h4 className="font-medium mb-2">Recommendation</h4>
-                        <p className="text-sm text-gray-500">
-                          {article.detailedAnalysis.recommendation}
-                        </p>
+                        <h4 className="font-medium mb-2">Key Findings</h4>
+                        <ul className="space-y-2">
+                          {article.flags.map((flag, index) => (
+                            <li key={index} className="text-sm text-gray-500 flex items-start">
+                              <div className="w-1.5 h-1.5 bg-[#0066FF] rounded-full mr-2 mt-2 flex-shrink-0" />
+                              {flag}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
-                    </>
-                  )}
-                </CardContent>
-              </Card>
+                    )}
+
+                    {article.detailedAnalysis?.recommendation && (
+                      <>
+                        <Separator className="my-4 bg-gray-700" />
+                        <div>
+                          <h4 className="font-medium mb-2">Recommendation</h4>
+                          <p className="text-sm text-gray-500">
+                            {article.detailedAnalysis.recommendation}
+                          </p>
+                        </div>
+                      </>
+                    )}
+                  </CardContent>
+                </Card>
+              )}
 
               {/* Methodology Card */}
               <Card className="bg-card border-gray-800">
