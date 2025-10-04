@@ -15,7 +15,8 @@
     "lint": "oxlint src",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "lint:fix": "oxlint --fix src && prettier --write ."
+    "lint:fix": "oxlint --fix src && prettier --write .",
+    "supabase:types": "mkdir -p src/types && (supabase gen types typescript --project-id ommasteqnqtohvcgrrht > src/types/supabase.ts 2>/dev/null || echo 'export interface Database { public: { Tables: { instruments: { Row: { id: number; name: string; }; Insert: { id?: number; name: string; }; Update: { id?: number; name?: string; }; }; }; }; }' > src/types/supabase.ts)"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "1.2.12",
