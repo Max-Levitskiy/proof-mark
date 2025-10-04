@@ -34,9 +34,14 @@ export interface NewsArticle {
 
 // Transform database row to NewsArticle
 function transformNewsArticle(row: NewsArticleRow): NewsArticle {
-  // Extract category from JSONB array
+  // Extract category from JSONB array of objects
   const categories = Array.isArray(row.category) ? row.category : []
-  const category = categories.length > 0 ? String(categories[0]) : ''
+  const category =
+    categories.length > 0
+      ? typeof categories[0] === 'object' && categories[0] !== null
+        ? String((categories[0] as Record<string, unknown>).label || '')
+        : String(categories[0])
+      : ''
 
   // Extract flags from JSONB array
   const flags = Array.isArray(row.flags) ? (row.flags as string[]) : undefined
@@ -69,20 +74,36 @@ function transformNewsArticle(row: NewsArticleRow): NewsArticle {
         }
       : undefined
 
+  // Extract author from JSON or string
+  const author =
+    row.author && typeof row.author === 'object'
+      ? String((row.author as Record<string, unknown>).name || '')
+      : typeof row.author === 'string'
+        ? row.author
+        : undefined
+
+  // Extract source from JSON or string
+  const source =
+    row.source && typeof row.source === 'object'
+      ? String((row.source as Record<string, unknown>).name || '')
+      : typeof row.source === 'string'
+        ? row.source
+        : undefined
+
   return {
     id: row.id,
     headline: row.headline,
     description: row.description || '',
     category,
     image: row.image || '',
-    trustScore: row.trust_score,
+    trustScore: row.trust_score ?? 0,
     trustExplanation: row.trust_explanation || '',
     content: row.content || undefined,
-    author: row.author || undefined,
+    author,
     location: row.location || undefined,
     publishedAt: row.published_at || undefined,
     readTime: row.read_time || undefined,
-    source: row.source || undefined,
+    source,
     sourcesVerified: row.sources_verified || undefined,
     flags,
     detailedAnalysis,

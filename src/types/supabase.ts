@@ -14,6 +14,148 @@ export type Database = {
   }
   public: {
     Tables: {
+      article_comments: {
+        Row: {
+          article_id: string
+          content: string
+          created_at: string
+          dislike_count: number
+          id: string
+          like_count: number
+          parent_comment_id: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          article_id: string
+          content: string
+          created_at?: string
+          dislike_count?: number
+          id?: string
+          like_count?: number
+          parent_comment_id?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          article_id?: string
+          content?: string
+          created_at?: string
+          dislike_count?: number
+          id?: string
+          like_count?: number
+          parent_comment_id?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_comments_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "news_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "article_comments_parent_comment_id_fkey"
+            columns: ["parent_comment_id"]
+            isOneToOne: false
+            referencedRelation: "article_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "article_comments_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      article_reactions: {
+        Row: {
+          article_id: string
+          created_at: string
+          id: string
+          reaction_type: Database["public"]["Enums"]["reaction_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          article_id: string
+          created_at?: string
+          id?: string
+          reaction_type: Database["public"]["Enums"]["reaction_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          article_id?: string
+          created_at?: string
+          id?: string
+          reaction_type?: Database["public"]["Enums"]["reaction_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "article_reactions_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "news_articles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "article_reactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      comment_reactions: {
+        Row: {
+          comment_id: string
+          created_at: string
+          id: string
+          reaction_type: Database["public"]["Enums"]["reaction_type"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          comment_id: string
+          created_at?: string
+          id?: string
+          reaction_type: Database["public"]["Enums"]["reaction_type"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          comment_id?: string
+          created_at?: string
+          id?: string
+          reaction_type?: Database["public"]["Enums"]["reaction_type"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "comment_reactions_comment_id_fkey"
+            columns: ["comment_id"]
+            isOneToOne: false
+            referencedRelation: "article_comments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "comment_reactions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       content_embeddings: {
         Row: {
           chunk_index: number | null
@@ -61,7 +203,7 @@ export type Database = {
       }
       news_articles: {
         Row: {
-          author: string | null
+          author: Json | null
           category: Json
           content: string | null
           created_at: string
@@ -72,16 +214,19 @@ export type Database = {
           id: string
           image: string | null
           location: string | null
+          metadata: Json | null
+          news_id: string | null
+          original_link: string | null
           published_at: string | null
           read_time: string | null
-          source: string | null
+          source: Json | null
           sources_verified: number | null
           trust_explanation: string | null
-          trust_score: number
+          trust_score: number | null
           updated_at: string
         }
         Insert: {
-          author?: string | null
+          author?: Json | null
           category?: Json
           content?: string | null
           created_at?: string
@@ -92,16 +237,19 @@ export type Database = {
           id?: string
           image?: string | null
           location?: string | null
+          metadata?: Json | null
+          news_id?: string | null
+          original_link?: string | null
           published_at?: string | null
           read_time?: string | null
-          source?: string | null
+          source?: Json | null
           sources_verified?: number | null
           trust_explanation?: string | null
-          trust_score: number
+          trust_score?: number | null
           updated_at?: string
         }
         Update: {
-          author?: string | null
+          author?: Json | null
           category?: Json
           content?: string | null
           created_at?: string
@@ -112,12 +260,15 @@ export type Database = {
           id?: string
           image?: string | null
           location?: string | null
+          metadata?: Json | null
+          news_id?: string | null
+          original_link?: string | null
           published_at?: string | null
           read_time?: string | null
-          source?: string | null
+          source?: Json | null
           sources_verified?: number | null
           trust_explanation?: string | null
-          trust_score?: number
+          trust_score?: number | null
           updated_at?: string
         }
         Relationships: []
@@ -264,7 +415,7 @@ export type Database = {
       }
     }
     Enums: {
-      [_ in never]: never
+      reaction_type: "like" | "dislike"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -391,6 +542,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      reaction_type: ["like", "dislike"],
+    },
   },
 } as const

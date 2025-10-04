@@ -4,6 +4,7 @@ import { CategoryBadge } from '@/components/CategoryBadge'
 import { Separator } from '@/components/ui/separator'
 import { TrustScoreBadge } from '@/components/TrustScoreBadge'
 import { ShareModal } from '@/modules/ShareModal'
+import { ArticleComments } from '@/modules/ArticleComments'
 import { Header } from '@/components/Header'
 import {
   ArrowLeft,
@@ -124,6 +125,9 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick, user, authLo
                 </Button>
               </div>
             </div>
+
+            {/* Comments Section */}
+            <ArticleComments articleId={article.id} userId={user?.id} />
           </div>
 
           {/* Sidebar */}
