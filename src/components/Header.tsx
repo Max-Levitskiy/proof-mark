@@ -2,14 +2,10 @@ import { Button } from "@/components/ui/button";
 import { LogIn, LogOut } from "lucide-react";
 import { Logo } from "@/components/Logo";
 import { Image } from "@/components/Image";
+import type { User } from "@/types/user";
 
 interface HeaderProps {
-  user: {
-    isSignedIn: boolean;
-    name: string;
-    email: string;
-    avatar: string;
-  };
+  user: User | null;
   onSignIn: () => void;
   onSignOut: () => void;
 }
@@ -23,22 +19,24 @@ export function Header({ user, onSignIn, onSignOut }: HeaderProps) {
           <Logo />
         </div>
 
-        {user.isSignedIn ? (
+        {user ? (
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 rounded-full overflow-hidden">
-                <Image
-                  src={user.avatar}
-                  alt={user.name}
-                  className="w-full h-full object-cover"
-                />
-              </div>
+              {user.avatar_url && (
+                <div className="w-8 h-8 rounded-full overflow-hidden">
+                  <Image
+                    src={user.avatar_url}
+                    alt={user.full_name || user.email}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              )}
               <div className="hidden md:block">
-                <p className="text-sm font-medium text-foreground">{user.name}</p>
+                <p className="text-sm font-medium text-foreground">{user.full_name || user.email}</p>
                 <p className="text-xs text-muted-foreground">{user.email}</p>
               </div>
             </div>
-            <Button 
+            <Button
               onClick={onSignOut}
               variant="ghost"
               size="sm"
@@ -49,7 +47,7 @@ export function Header({ user, onSignIn, onSignOut }: HeaderProps) {
             </Button>
           </div>
         ) : (
-          <Button 
+          <Button
             onClick={onSignIn}
             className="bg-[#0066FF] hover:bg-[#0056e6] text-white"
           >

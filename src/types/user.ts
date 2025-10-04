@@ -1,6 +1,8 @@
 export interface User {
-  isSignedIn: boolean
-  name: string
-  email: string
-  avatar: string
+  id: string;
+  email: string;
+  full_name?: string;
+  avatar_url?: string;
+  created_at: string;
+  updated_at: string;
 }

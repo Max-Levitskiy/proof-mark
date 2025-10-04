@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Header } from '@/components/Header'
 import { VideoPlayer } from '@/components/VideoPlayer'
 import { AnimatedBackground } from '@/components/AnimatedBackground'
@@ -12,26 +12,13 @@ import { Separator } from '@/components/ui/separator'
 import { useNavigate } from 'react-router-dom'
 import { useModal } from '@/hooks/useModal'
 import { TrustScoreModalData, DetailedAnalysisModalData } from '@/types/modal'
-import { User } from '@/types/user'
-
-const INITIAL_USER: User = {
-  isSignedIn: false,
-  name: '',
-  email: '',
-  avatar: '',
-}
-
-const MOCK_USER: User = {
-  isSignedIn: true,
-  name: 'John Doe',
-  email: 'john.doe@example.com',
-  avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face',
-}
+import type { User } from '@/types/user'
+import { getCurrentUser, onAuthStateChange, signInWithGoogle, signOut } from '@/api/auth'
 
 export function HomePage() {
   const navigate = useNavigate()
 
-  const [user, setUser] = useState<User>(INITIAL_USER)
+  const [user, setUser] = useState<User | null>(null)
   const [signUpModalOpen, setSignUpModalOpen] = useState(false)
 
   const detailedAnalysisModal = useModal<DetailedAnalysisModalData>({
@@ -70,12 +57,27 @@ export function HomePage() {
     [trustScoreModal]
   )
 
-  const handleGoogleSignIn = useCallback(() => {
-    setUser(MOCK_USER)
+  useEffect(() => {
+    getCurrentUser().then(setUser)
+    const unsubscribe = onAuthStateChange(setUser)
+    return unsubscribe
   }, [])
 
-  const handleSignOut = useCallback(() => {
-    setUser(INITIAL_USER)
+  const handleGoogleSignIn = useCallback(async () => {
+    try {
+      await signInWithGoogle()
+    } catch (error) {
+      console.error('Error signing in:', error)
+    }
+  }, [])
+
+  const handleSignOut = useCallback(async () => {
+    try {
+      await signOut()
+      setUser(null)
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
   }, [])
 
   const handleCloseSignUpModal = useCallback(() => {
