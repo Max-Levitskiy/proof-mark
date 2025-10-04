@@ -183,15 +183,15 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
             {/* Left Column - News Content */}
             <div className="flex-1 space-y-4">
               <div className="space-y-2">
-                <p className="text-sm text-muted-foreground font-light">
+                <p className="text-sm text-gray-500 font-light">
                   Credibility Analysis
                 </p>
-                <h3 className="text-xl text-foreground">
+                <h3 className="text-xl text-gray-100">
                   News Content Analysis Results
                 </h3>
               </div>
-              
-              <div className="text-sm text-muted-foreground space-y-3 leading-relaxed">
+
+              <div className="text-sm text-gray-500 space-y-3 leading-relaxed">
                 <p>{analysis.summary}</p>
                 <p>This analysis demonstrates consistent factual reporting with verifiable sources and cross-references. The claims are supported by credible evidence and expert opinions.</p>
                 <p>Key indicators show reliable sourcing patterns, balanced perspective presentation, and adherence to journalistic standards for factual reporting.</p>
@@ -206,32 +206,32 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
               {/* Trust Score Section */}
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-1 relative">
-                  <p className="text-sm text-muted-foreground/60">
+                  <p className="text-sm text-gray-500">
                     ProofMark Trust Score
                   </p>
-                  <button 
+                  <button
                     onClick={() => setActiveTooltip(activeTooltip === -1 ? null : -1)}
-                    className="w-4 h-4 flex items-center justify-center text-muted-foreground/60 hover:text-muted-foreground transition-colors"
+                    className="w-4 h-4 flex items-center justify-center text-gray-500 hover:text-gray-400 transition-colors"
                   >
                     <HelpCircle className="w-3 h-3" />
                   </button>
-                  
+
                   {activeTooltip === -1 && (
-                    <div className="absolute left-0 top-6 w-80 bg-popover border border-gray-800 rounded-lg p-4 shadow-lg z-50">
+                    <div className="absolute left-0 top-6 w-80 bg-gray-900 border border-gray-700 rounded-lg p-4 shadow-lg z-50">
                       <div className="space-y-2">
-                        <h4 className="font-semibold text-sm text-foreground">ProofMark Trust Score</h4>
-                        <div className="text-xs text-muted-foreground leading-relaxed space-y-2">
+                        <h4 className="font-semibold text-sm text-gray-100">ProofMark Trust Score</h4>
+                        <div className="text-xs text-gray-500 leading-relaxed space-y-2">
                           <p>Our proprietary AI-powered scoring system that evaluates news credibility on a scale of 0-100.</p>
-                          <div className="space-y-1">
-                            <p><strong>AAA (80-100):</strong> <span className="text-[#31ff8e]">Highly reliable</span> - Multiple verified sources, strong factual accuracy</p>
-                            <p><strong>AA (60-79):</strong> <span className="text-[#31ff8e]">Generally reliable</span> - Good sourcing with minor concerns</p>
-                            <p><strong>A (40-59):</strong> <span className="text-yellow-500">Moderate reliability</span> - Mixed indicators, verify independently</p>
-                            <p><strong>B (20-39):</strong> <span className="text-yellow-500">Low reliability</span> - Significant credibility concerns</p>
-                            <p><strong>C (0-19):</strong> <span className="text-red-500">Unreliable</span> - High risk of misinformation</p>
+                          <div className="space-y-2">
+                            <p><strong className="text-gray-100">AAA (80-100):</strong> <span className="text-[#31ff8e]">Highly reliable</span> <span className="text-gray-500">- Multiple verified sources, strong factual accuracy</span></p>
+                            <p><strong className="text-gray-100">AA (60-79):</strong> <span className="text-[#31ff8e]">Generally reliable</span> <span className="text-gray-500">- Good sourcing with minor concerns</span></p>
+                            <p><strong className="text-gray-100">A (40-59):</strong> <span className="text-yellow-500">Moderate reliability</span> <span className="text-gray-500">- Mixed indicators, verify independently</span></p>
+                            <p><strong className="text-gray-100">B (20-39):</strong> <span className="text-yellow-500">Low reliability</span> <span className="text-gray-500">- Significant credibility concerns</span></p>
+                            <p><strong className="text-gray-100">C (0-19):</strong> <span className="text-red-500">Unreliable</span> <span className="text-gray-500">- High risk of misinformation</span></p>
                           </div>
                         </div>
                       </div>
-                      <div className="absolute -top-1 left-4 w-2 h-2 bg-popover border-l border-t border-gray-800 rotate-45"></div>
+                      <div className="absolute -top-1 left-4 w-2 h-2 bg-gray-900 border-l border-t border-gray-700 rotate-45"></div>
                     </div>
                   )}
                 </div>
@@ -282,24 +282,24 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                       <div className="bg-[rgba(49,255,142,0.05)] rounded p-1.5 w-6 h-6 flex items-center justify-center">
                         <ThumbsUp className="w-3 h-3 text-[#31ff8e] opacity-70" />
                       </div>
-                      <span className="text-sm text-muted-foreground font-light">
+                      <span className="text-sm text-gray-400 font-light">
                         {factor.name}
                       </span>
                     </div>
                     <div className="relative">
-                      <button 
+                      <button
                         onClick={() => setActiveTooltip(activeTooltip === index ? null : index)}
-                        className="w-5 h-5 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+                        className="w-5 h-5 flex items-center justify-center text-gray-500 hover:text-gray-400 transition-colors"
                       >
                         <HelpCircle className="w-4 h-4" />
                       </button>
-                      
+
                       {activeTooltip === index && (
-                        <div className="absolute right-0 top-6 w-72 bg-popover border border-gray-800 rounded-lg p-3 shadow-lg z-50">
-                          <div className="text-xs text-muted-foreground leading-relaxed">
+                        <div className="absolute right-0 top-6 w-72 bg-gray-900 border border-gray-700 rounded-lg p-3 shadow-lg z-50">
+                          <div className="text-xs text-gray-500 leading-relaxed">
                             {factor.description}
                           </div>
-                          <div className="absolute -top-1 right-2 w-2 h-2 bg-popover border-l border-t border-gray-800 rotate-45"></div>
+                          <div className="absolute -top-1 right-2 w-2 h-2 bg-gray-900 border-l border-t border-gray-700 rotate-45"></div>
                         </div>
                       )}
                     </div>
@@ -310,10 +310,10 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
               {/* Analysis Summary */}
               <div className="bg-[rgba(218,221,229,0.02)] border border-[rgba(218,221,229,0.05)] rounded-xl p-4">
                 <div className="flex items-center gap-1 mb-2">
-                  <Sparkles className="w-6 h-6 text-foreground" />
-                  <span className="text-foreground font-light">Analysis Summary</span>
+                  <Sparkles className="w-6 h-6 text-gray-100" />
+                  <span className="text-gray-100 font-light">Analysis Summary</span>
                 </div>
-                <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                <p className="text-xs text-gray-500 font-light leading-relaxed mt-2">
                   {analysis.recommendation}
                 </p>
               </div>
@@ -322,7 +322,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
 
           {/* See Sources Button */}
           <div className="mt-6 pt-4">
-            <button className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <button className="flex items-center gap-1 text-sm text-gray-500 hover:text-gray-300 transition-colors">
               <span>See sources</span>
               <ChevronDown className="w-4 h-4" />
             </button>

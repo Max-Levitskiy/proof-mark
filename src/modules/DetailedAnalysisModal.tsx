@@ -51,35 +51,35 @@ export function DetailedAnalysisModal({ isOpen, onClose, newsHeadline }: Detaile
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto bg-gray-900 border-gray-700 [&>button]:text-gray-400 [&>button:hover]:text-gray-100 [&>button]:opacity-100 [&>button]:focus:ring-gray-600 [&>button]:ring-offset-gray-900 [&>button]:cursor-pointer">
         <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
+          <DialogTitle className="flex items-center space-x-2 text-gray-100">
             <Sparkles className="w-5 h-5 text-[#0066FF]" />
             <span>Detailed Analysis</span>
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Request a custom analysis with your specific prompt or question
           </DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
-          <div className="p-3 bg-gray-100 rounded-lg">
-            <p className="text-sm font-medium text-gray-900">Analyzing:</p>
-            <p className="text-sm text-gray-600 mt-1">{newsHeadline}</p>
+          <div className="p-3 bg-gray-800 rounded-lg">
+            <p className="text-sm font-medium text-gray-100">Analyzing:</p>
+            <p className="text-sm text-gray-400 mt-1">{newsHeadline}</p>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="analysis-prompt" className="text-gray-900">Custom Analysis Request</Label>
+            <Label htmlFor="analysis-prompt" className="text-gray-100">Custom Analysis Request</Label>
             <Textarea
               id="analysis-prompt"
               placeholder="e.g., 'Analyze this news from a different perspective', 'What are the potential biases?', 'Compare with similar events in the past'"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
-              className="min-h-24 bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-400"
+              className="min-h-24 bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-500"
             />
           </div>
 
-          <Button 
+          <Button
             onClick={handleAnalyze}
             disabled={!prompt.trim() || isAnalyzing}
             className="w-full bg-[#0066FF] hover:bg-[#0056e6] text-white"
@@ -91,21 +91,21 @@ export function DetailedAnalysisModal({ isOpen, onClose, newsHeadline }: Detaile
           {isAnalyzing && (
             <div className="flex items-center justify-center py-8">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-[#0066FF]"></div>
-              <span className="ml-3 text-gray-900">AI is analyzing your request...</span>
+              <span className="ml-3 text-gray-100">AI is analyzing your request...</span>
             </div>
           )}
 
           {result && !isAnalyzing && (
             <div className="space-y-3">
-              <div className="border-t border-gray-200 pt-4">
-                <h4 className="font-semibold mb-3 text-gray-900">Analysis Results</h4>
-                <div className="bg-gray-100 rounded-lg p-4">
-                  <pre className="whitespace-pre-wrap text-sm leading-relaxed text-gray-900">{result}</pre>
+              <div className="border-t border-gray-700 pt-4">
+                <h4 className="font-semibold mb-3 text-gray-100">Analysis Results</h4>
+                <div className="bg-gray-800 rounded-lg p-4">
+                  <pre className="whitespace-pre-wrap text-sm leading-relaxed text-gray-100">{result}</pre>
                 </div>
               </div>
-              
+
               <div className="flex justify-end space-x-2">
-                <Button variant="outline" onClick={handleClose}>
+                <Button variant="outline" onClick={handleClose} className="border-gray-700 text-gray-300 hover:bg-gray-800">
                   Close
                 </Button>
                 <Button className="bg-[#0066FF] hover:bg-[#0056e6] text-white">

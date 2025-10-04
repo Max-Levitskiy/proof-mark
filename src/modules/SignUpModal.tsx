@@ -38,13 +38,13 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md bg-gray-900 border-gray-700 max-h-[90vh] overflow-y-auto [&>button]:text-gray-400 [&>button:hover]:text-gray-100 [&>button]:opacity-100 [&>button]:focus:ring-gray-600 [&>button]:ring-offset-gray-900 [&>button]:cursor-pointer">
         <DialogHeader>
-          <DialogTitle className="flex items-center space-x-2">
+          <DialogTitle className="flex items-center space-x-2 text-gray-100">
             <Zap className="w-5 h-5 text-[#0066FF]" />
             <span>Deep Research Mode</span>
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Sign up to access advanced AI research capabilities
           </DialogDescription>
         </DialogHeader>
@@ -58,8 +58,8 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
                     <Zap className="w-4 h-4 text-white" />
                   </div>
                   <div>
-                    <h4 className="font-semibold mb-1 text-gray-900">Advanced Features Coming Soon</h4>
-                    <p className="text-sm text-gray-600">
+                    <h4 className="font-semibold mb-1 text-gray-100">Advanced Features Coming Soon</h4>
+                    <p className="text-sm text-gray-400">
                       Deep Research mode will provide comprehensive fact-checking, source verification, and bias analysis.
                     </p>
                   </div>
@@ -68,15 +68,15 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
             </Card>
 
             <div className="space-y-3">
-              <h4 className="font-semibold text-gray-900">Stay Updated</h4>
-              <p className="text-sm text-gray-600">
+              <h4 className="font-semibold text-gray-100">Stay Updated</h4>
+              <p className="text-sm text-gray-400">
                 Subscribe to get notified when Deep Research and other advanced features become available.
               </p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-gray-900">Email Address</Label>
+                <Label htmlFor="email" className="text-gray-100">Email Address</Label>
                 <Input
                   id="email"
                   type="email"
@@ -84,11 +84,11 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="bg-gray-50 border-gray-300 text-gray-900 placeholder:text-gray-400"
+                  className="bg-gray-800 border-gray-700 text-gray-100 placeholder:text-gray-500"
                 />
               </div>
 
-              <Button 
+              <Button
                 type="submit"
                 disabled={isSubmitting || !email.trim()}
                 className="w-full bg-[#0066FF] hover:bg-[#0056e6] text-white"
@@ -98,20 +98,20 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
               </Button>
             </form>
 
-            <p className="text-xs text-gray-600 text-center">
+            <p className="text-xs text-gray-400 text-center">
               We'll only send you updates about new features. No spam, unsubscribe anytime.
             </p>
           </div>
         ) : (
           <div className="space-y-4 text-center py-4">
-            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-              <CheckCircle className="w-8 h-8 text-green-600" />
+            <div className="w-16 h-16 bg-green-900/30 rounded-full flex items-center justify-center mx-auto">
+              <CheckCircle className="w-8 h-8 text-green-500" />
             </div>
-            
+
             <div className="space-y-2">
-              <h4 className="font-semibold text-gray-900">You're All Set!</h4>
-              <p className="text-sm text-gray-600">
-                We'll notify you at <strong className="text-gray-900">{email}</strong> when Deep Research mode is available.
+              <h4 className="font-semibold text-gray-100">You're All Set!</h4>
+              <p className="text-sm text-gray-400">
+                We'll notify you at <strong className="text-gray-100">{email}</strong> when Deep Research mode is available.
               </p>
             </div>
 

@@ -6,10 +6,13 @@ import { Loader } from '@/components/Loader'
 import { useNewsById } from '@/api/news'
 import { useModal } from '@/hooks/useModal'
 import { TrustScoreModalData } from '@/types/modal'
+import { useAuth } from '@/api/AuthContext'
+import { signInWithGoogle, signOut } from '@/api/auth'
 
 export function Article() {
   const { id } = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const { user, loading: authLoading } = useAuth()
 
   const trustScoreModal = useModal<TrustScoreModalData>({
     score: 0,
@@ -43,6 +46,22 @@ export function Article() {
     [trustScoreModal]
   )
 
+  const handleGoogleSignIn = useCallback(async () => {
+    try {
+      await signInWithGoogle()
+    } catch (error) {
+      console.error('Error signing in:', error)
+    }
+  }, [])
+
+  const handleSignOut = useCallback(async () => {
+    try {
+      await signOut()
+    } catch (error) {
+      console.error('Error signing out:', error)
+    }
+  }, [])
+
   if (isLoading) {
     return <Loader />
   }
@@ -57,6 +76,10 @@ export function Article() {
         article={article}
         onBack={handleBackToHome}
         onTrustScoreClick={handleTrustScoreClick}
+        user={user}
+        authLoading={authLoading}
+        onSignIn={handleGoogleSignIn}
+        onSignOut={handleSignOut}
       />
 
       <TrustScoreModal

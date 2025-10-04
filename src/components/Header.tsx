@@ -13,7 +13,7 @@ interface HeaderProps {
 export function Header({ user, authLoading = false, onSignIn, onSignOut }: HeaderProps) {
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-gray-800">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gray-900/70 backdrop-blur-sm border-b border-gray-800">
       <div className="container mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center">
           <Logo />
@@ -33,7 +33,7 @@ export function Header({ user, authLoading = false, onSignIn, onSignOut }: Heade
                 />
               )}
               <div className="hidden md:block">
-                <p className="text-sm font-medium text-foreground">{user.full_name || user.email}</p>
+                <p className="text-sm font-medium text-gray-100">{user.full_name || user.email}</p>
                 <p className="text-xs text-muted-foreground">{user.email}</p>
               </div>
             </div>
@@ -41,7 +41,7 @@ export function Header({ user, authLoading = false, onSignIn, onSignOut }: Heade
               onClick={onSignOut}
               variant="ghost"
               size="sm"
-              className="text-muted-foreground hover:text-foreground"
+              className="text-muted-foreground hover:text-gray-100"
             >
               <LogOut className="w-4 h-4 mr-2" />
               Sign out

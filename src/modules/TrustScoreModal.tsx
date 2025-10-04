@@ -59,13 +59,13 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-md mx-auto">
+      <DialogContent className="max-w-md mx-auto bg-gray-900 border-gray-700 max-h-[90vh] overflow-y-auto [&>button]:text-gray-400 [&>button:hover]:text-gray-100 [&>button]:opacity-100 [&>button]:focus:ring-gray-600 [&>button]:ring-offset-gray-900 [&>button]:cursor-pointer">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-3">
+          <DialogTitle className="flex items-center gap-3 text-gray-100">
             {scoreInfo.icon}
             Trust Score Analysis
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-gray-400">
             Detailed analysis of news credibility and reliability indicators
           </DialogDescription>
         </DialogHeader>
@@ -73,9 +73,9 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
         <div className="space-y-6">
           {/* News Headline */}
           {newsHeadline && (
-            <div className="p-3 bg-gray-100 rounded-lg">
-              <h4 className="text-sm font-medium mb-1 text-gray-900">Analyzing:</h4>
-              <p className="text-sm text-gray-600">{newsHeadline}</p>
+            <div className="p-3 bg-gray-800 rounded-lg">
+              <h4 className="text-sm font-medium mb-1 text-gray-100">Analyzing:</h4>
+              <p className="text-sm text-gray-400">{newsHeadline}</p>
             </div>
           )}
 
@@ -88,7 +88,7 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
             </div>
             
             <div className="space-y-2">
-              <div className="flex justify-between text-sm text-gray-900">
+              <div className="flex justify-between text-sm text-gray-100">
                 <span>Trust Score</span>
                 <span>{score}/100</span>
               </div>
@@ -100,72 +100,72 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               {scoreInfo.icon}
-              <h3 className="font-semibold text-gray-900">{scoreInfo.title}</h3>
+              <h3 className="font-semibold text-gray-100">{scoreInfo.title}</h3>
             </div>
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="text-sm text-gray-400 leading-relaxed">
               {scoreInfo.description}
             </p>
           </div>
 
-          <Separator className="my-6 bg-gray-200" />
+          <Separator className="my-6 bg-gray-700" />
 
           {/* AI Analysis Details */}
           <div className="space-y-3">
-            <h4 className="font-medium text-sm text-gray-900">AI Analysis Details</h4>
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <h4 className="font-medium text-sm text-gray-100">AI Analysis Details</h4>
+            <p className="text-sm text-gray-400 leading-relaxed">
               {explanation}
             </p>
           </div>
 
-          <Separator className="my-6 bg-gray-200" />
+          <Separator className="my-6 bg-gray-700" />
 
           {/* Score Scale Reference */}
           <div className="space-y-3">
-            <h4 className="font-medium text-sm text-gray-900">Trust Score Scale</h4>
+            <h4 className="font-medium text-sm text-gray-100">Trust Score Scale</h4>
             <div className="space-y-2 text-xs">
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2 text-gray-900">
+                <span className="flex items-center gap-2 text-gray-100">
                   <div className="w-3 h-3 bg-green-600 rounded"></div>
                   AAA (80-100)
                 </span>
-                <span className="text-gray-600">Exceptional</span>
+                <span className="text-gray-400">Exceptional</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2 text-gray-900">
+                <span className="flex items-center gap-2 text-gray-100">
                   <div className="w-3 h-3 bg-green-600 rounded"></div>
                   AA (60-79)
                 </span>
-                <span className="text-gray-600">High</span>
+                <span className="text-gray-400">High</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2 text-gray-900">
+                <span className="flex items-center gap-2 text-gray-100">
                   <div className="w-3 h-3 bg-yellow-600 rounded"></div>
                   A (40-59)
                 </span>
-                <span className="text-gray-600">Moderate</span>
+                <span className="text-gray-400">Moderate</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2 text-gray-900">
+                <span className="flex items-center gap-2 text-gray-100">
                   <div className="w-3 h-3 bg-yellow-600 rounded"></div>
                   B (20-39)
                 </span>
-                <span className="text-gray-600">Low</span>
+                <span className="text-gray-400">Low</span>
               </div>
               <div className="flex justify-between items-center">
-                <span className="flex items-center gap-2 text-gray-900">
+                <span className="flex items-center gap-2 text-gray-100">
                   <div className="w-3 h-3 bg-red-600 rounded"></div>
                   C (0-19)
                 </span>
-                <span className="text-gray-600">Poor</span>
+                <span className="text-gray-400">Poor</span>
               </div>
             </div>
           </div>
 
-          <Separator className="my-6 bg-gray-200" />
+          <Separator className="my-6 bg-gray-700" />
 
           {/* Footer */}
           <div>
-            <p className="text-xs text-gray-600 text-center">
+            <p className="text-xs text-gray-400 text-center">
               AI-Powered Analysis
             </p>
           </div>

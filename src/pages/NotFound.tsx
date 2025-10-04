@@ -32,7 +32,7 @@ export function NotFound() {
   }, [navigate])
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-gray-100">
       <Header
         user={user}
         authLoading={authLoading}
