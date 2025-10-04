@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { Header } from '@/components/Header'
 import { VideoPlayer } from '@/components/VideoPlayer'
 import { AnimatedBackground } from '@/components/AnimatedBackground'
@@ -12,14 +12,13 @@ import { Separator } from '@/components/ui/separator'
 import { useNavigate } from 'react-router-dom'
 import { useModal } from '@/hooks/useModal'
 import { TrustScoreModalData, DetailedAnalysisModalData } from '@/types/modal'
-import type { User } from '@/types/user'
-import { getCurrentUser, onAuthStateChange, signInWithGoogle, signOut } from '@/api/auth'
+import { signInWithGoogle, signOut } from '@/api/auth'
+import { useAuth } from '@/api/AuthContext'
 
 export function HomePage() {
   const navigate = useNavigate()
+  const { user, loading: authLoading } = useAuth()
 
-  const [user, setUser] = useState<User | null>(null)
-  const [authLoading, setAuthLoading] = useState(true)
   const [signUpModalOpen, setSignUpModalOpen] = useState(false)
 
   const detailedAnalysisModal = useModal<DetailedAnalysisModalData>({
@@ -58,14 +57,6 @@ export function HomePage() {
     [trustScoreModal]
   )
 
-  useEffect(() => {
-    getCurrentUser().then((user) => {
-      setUser(user)
-      setAuthLoading(false)
-    })
-    const unsubscribe = onAuthStateChange(setUser)
-    return unsubscribe
-  }, [])
 
   const handleGoogleSignIn = useCallback(async () => {
     try {
@@ -78,7 +69,6 @@ export function HomePage() {
   const handleSignOut = useCallback(async () => {
     try {
       await signOut()
-      setUser(null)
     } catch (error) {
       console.error('Error signing out:', error)
     }

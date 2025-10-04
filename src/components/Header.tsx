@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { LogIn, LogOut } from "lucide-react";
 import { Logo } from "@/components/Logo";
-import { Image } from "@/components/Image";
 import type { User } from "@/types/user";
 
 interface HeaderProps {
