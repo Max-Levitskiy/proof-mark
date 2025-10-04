@@ -8,6 +8,7 @@ import { DetailedAnalysisModal } from '@/modules/DetailedAnalysisModal'
 import { SignUpModal } from '@/modules/SignUpModal'
 import { TrustScoreModal } from '@/modules/TrustScoreModal'
 import { Logo } from '@/components/Logo'
+import { Separator } from '@/components/ui/separator'
 import { useNavigate } from 'react-router-dom'
 import { useModal } from '@/hooks/useModal'
 import { TrustScoreModalData, DetailedAnalysisModalData } from '@/types/modal'
@@ -125,57 +126,59 @@ export function HomePage() {
           />
         </section>
 
-        <footer className="border-t border-gray-800 bg-card/50">
-          <div className="container mx-auto px-6 py-12">
+        <footer className="border-t border-gray-700 bg-gray-900">
+          <div className="container mx-auto px-6 py-8">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-              <div className="space-y-4">
+              <div className="space-y-3">
                 <div className="flex items-center space-x-3">
                   <Logo />
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-sm text-gray-400 leading-relaxed">
                   AI-powered news credibility verification for the modern world.
                 </p>
               </div>
 
               <div>
-                <h4 className="font-semibold mb-3">Product</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>How it Works</li>
-                  <li>API Access</li>
-                  <li>Pricing</li>
-                  <li>Enterprise</li>
+                <h4 className="font-semibold mb-3 text-gray-200">Product</h4>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">How it Works</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">API Access</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Pricing</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Enterprise</li>
                 </ul>
               </div>
 
               <div>
-                <h4 className="font-semibold mb-3">Company</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>About Us</li>
-                  <li>Careers</li>
-                  <li>Press</li>
-                  <li>Contact</li>
+                <h4 className="font-semibold mb-3 text-gray-200">Company</h4>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">About Us</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Careers</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Press</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Contact</li>
                 </ul>
               </div>
 
               <div>
-                <h4 className="font-semibold mb-3">Resources</h4>
-                <ul className="space-y-2 text-sm text-muted-foreground">
-                  <li>Documentation</li>
-                  <li>Research</li>
-                  <li>Blog</li>
-                  <li>Support</li>
+                <h4 className="font-semibold mb-3 text-gray-200">Resources</h4>
+                <ul className="space-y-2 text-sm text-gray-400">
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Documentation</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Research</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Blog</li>
+                  <li className="hover:text-gray-200 cursor-pointer transition-colors">Support</li>
                 </ul>
               </div>
             </div>
 
-            <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-              <p className="text-sm text-muted-foreground">
+            <Separator className="my-6 bg-gray-700" />
+
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <p className="text-sm text-gray-400">
                 © 2025 ProofMark. All rights reserved.
               </p>
-              <div className="flex space-x-6 text-sm text-muted-foreground mt-4 md:mt-0">
-                <span>Privacy Policy</span>
-                <span>Terms of Service</span>
-                <span>Cookie Policy</span>
+              <div className="flex gap-8 text-sm text-gray-400">
+                <span className="hover:text-gray-200 cursor-pointer transition-colors">Privacy Policy</span>
+                <span className="hover:text-gray-200 cursor-pointer transition-colors">Terms of Service</span>
+                <span className="hover:text-gray-200 cursor-pointer transition-colors">Cookie Policy</span>
               </div>
             </div>
           </div>
