@@ -19,6 +19,7 @@ export function HomePage() {
   const navigate = useNavigate()
 
   const [user, setUser] = useState<User | null>(null)
+  const [authLoading, setAuthLoading] = useState(true)
   const [signUpModalOpen, setSignUpModalOpen] = useState(false)
 
   const detailedAnalysisModal = useModal<DetailedAnalysisModalData>({
@@ -58,7 +59,10 @@ export function HomePage() {
   )
 
   useEffect(() => {
-    getCurrentUser().then(setUser)
+    getCurrentUser().then((user) => {
+      setUser(user)
+      setAuthLoading(false)
+    })
     const unsubscribe = onAuthStateChange(setUser)
     return unsubscribe
   }, [])
@@ -88,6 +92,7 @@ export function HomePage() {
     <div className="min-h-screen bg-background text-foreground">
       <Header
         user={user}
+        authLoading={authLoading}
         onSignIn={handleGoogleSignIn}
         onSignOut={handleSignOut}
       />

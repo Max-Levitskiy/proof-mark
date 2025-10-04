@@ -7,11 +7,22 @@ export default function AuthCallbackPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((event) => {
-      if (event === 'SIGNED_IN') {
-        navigate('/');
+    const handleCallback = async () => {
+      const hashParams = new URLSearchParams(window.location.hash.substring(1));
+      const access_token = hashParams.get('access_token');
+      const refresh_token = hashParams.get('refresh_token');
+
+      if (access_token && refresh_token) {
+        await supabase.auth.setSession({
+          access_token,
+          refresh_token,
+        });
       }
-    });
+
+      navigate('/');
+    };
+
+    handleCallback();
   }, [navigate]);
 
   return (

@@ -6,11 +6,12 @@ import type { User } from "@/types/user";
 
 interface HeaderProps {
   user: User | null;
+  authLoading?: boolean;
   onSignIn: () => void;
   onSignOut: () => void;
 }
 
-export function Header({ user, onSignIn, onSignOut }: HeaderProps) {
+export function Header({ user, authLoading = false, onSignIn, onSignOut }: HeaderProps) {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b border-gray-800">
@@ -19,17 +20,18 @@ export function Header({ user, onSignIn, onSignOut }: HeaderProps) {
           <Logo />
         </div>
 
-        {user ? (
+        {authLoading ? (
+          <div className="w-24 h-10" />
+        ) : user ? (
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-3">
               {user.avatar_url && (
-                <div className="w-8 h-8 rounded-full overflow-hidden">
-                  <Image
-                    src={user.avatar_url}
-                    alt={user.full_name || user.email}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+                <img
+                  src={user.avatar_url}
+                  alt={user.full_name || user.email}
+                  className="w-8 h-8 rounded-full object-cover"
+                  referrerPolicy="no-referrer"
+                />
               )}
               <div className="hidden md:block">
                 <p className="text-sm font-medium text-foreground">{user.full_name || user.email}</p>
