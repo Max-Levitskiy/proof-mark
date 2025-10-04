@@ -96,7 +96,7 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
             </div>
 
             {/* Article Content */}
-            <div className="prose prose-lg max-w-none dark:prose-invert">
+            <div className="prose prose-lg max-w-none prose-invert">
               <p className="text-xl text-muted-foreground mb-6">{article.description}</p>
               {article.content && (
                 <div className="whitespace-pre-wrap">{article.content}</div>

@@ -7,8 +7,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AlertCircle, Search, Zap, ThumbsUp, Sparkles, ChevronDown, HelpCircle } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { Image } from "@/components/Image";
-import imgImage6 from "@/assets/1871430f3ebec188ab8650cf40c380b9fb63b23b.png";
 
 interface CredibilityCheckerProps {
   onDeepResearchToggle: () => void;
@@ -191,14 +189,6 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                 <h3 className="text-xl text-foreground">
                   News Content Analysis Results
                 </h3>
-              </div>
-              
-              <div className="aspect-video relative rounded-lg overflow-hidden">
-                <Image 
-                  src={imgImage6}
-                  alt="News analysis preview"
-                  className="w-full h-full object-cover"
-                />
               </div>
               
               <div className="text-sm text-muted-foreground space-y-3 leading-relaxed">

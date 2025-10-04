@@ -117,7 +117,7 @@ export function HomePage() {
   }
 
   return (
-    <div className="min-h-screen bg-background text-foreground dark">
+    <div className="min-h-screen bg-background text-foreground">
       <Header
         user={user}
         onSignIn={handleGoogleSignIn}
