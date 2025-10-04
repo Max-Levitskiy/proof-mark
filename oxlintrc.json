@@ -1,0 +1,18 @@
+{
+  "ignorePatterns": [
+    "node_modules",
+    "dist",
+    "build",
+    "*.config.js",
+    "*.config.ts"
+  ],
+  "include": ["src/**/*"],
+  "rules": {
+    "react": "error",
+    "jsx-a11y": "warn",
+    "typescript": "error",
+    "import": "error",
+    "unicorn": "warn",
+    "eslint": "error"
+  }
+}
