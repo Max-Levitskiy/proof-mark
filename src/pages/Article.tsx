@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { ArticleDetail } from '@/modules/ArticleDetail'
 import { TrustScoreModal } from '@/modules/TrustScoreModal'
 import { Loader } from '@/components/Loader'
 import { fetchNewsById, NewsArticle } from '@/api/news'
+import { useModal } from '@/hooks/useModal'
+import { TrustScoreModalData } from '@/types/modal'
 
 export function Article() {
   const { id } = useParams<{ id: string }>()
@@ -12,13 +14,7 @@ export function Article() {
   const [article, setArticle] = useState<NewsArticle | null>(null)
   const [isLoading, setIsLoading] = useState(true)
 
-  const [trustScoreModal, setTrustScoreModal] = useState<{
-    isOpen: boolean
-    score: number
-    explanation: string
-    headline: string
-  }>({
-    isOpen: false,
+  const trustScoreModal = useModal<TrustScoreModalData>({
     score: 0,
     explanation: '',
     headline: '',
@@ -46,31 +42,16 @@ export function Article() {
     loadArticle()
   }, [id, navigate])
 
-  const handleBackToHome = () => {
+  const handleBackToHome = useCallback(() => {
     navigate('/')
-  }
+  }, [navigate])
 
-  const handleTrustScoreClick = (
-    score: number,
-    explanation: string,
-    headline: string
-  ) => {
-    setTrustScoreModal({
-      isOpen: true,
-      score,
-      explanation,
-      headline,
-    })
-  }
-
-  const handleCloseTrustScore = () => {
-    setTrustScoreModal({
-      isOpen: false,
-      score: 0,
-      explanation: '',
-      headline: '',
-    })
-  }
+  const handleTrustScoreClick = useCallback(
+    (score: number, explanation: string, headline: string) => {
+      trustScoreModal.open({ score, explanation, headline })
+    },
+    [trustScoreModal]
+  )
 
   if (isLoading) {
     return <Loader />
@@ -89,11 +70,11 @@ export function Article() {
       />
 
       <TrustScoreModal
-        isOpen={trustScoreModal.isOpen}
-        onClose={handleCloseTrustScore}
-        score={trustScoreModal.score}
-        explanation={trustScoreModal.explanation}
-        newsHeadline={trustScoreModal.headline}
+        isOpen={trustScoreModal.state.isOpen}
+        onClose={trustScoreModal.close}
+        score={trustScoreModal.state.data.score}
+        explanation={trustScoreModal.state.data.explanation}
+        newsHeadline={trustScoreModal.state.data.headline}
       />
     </>
   )
