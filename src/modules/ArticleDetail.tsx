@@ -8,8 +8,6 @@ import {
   Clock,
   User,
   MapPin,
-  ExternalLink,
-  Share2,
 } from 'lucide-react'
 import { Image } from '@/components/Image'
 import { Logo } from '@/components/Logo'
@@ -104,23 +102,6 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick }: ArticleDet
               {article.content && (
                 <div className="whitespace-pre-wrap text-gray-400">{article.content}</div>
               )}
-            </div>
-
-            {/* Share Section */}
-            <div className="mt-8 pt-8 border-t border-gray-800">
-              <div className="flex items-center justify-between">
-                <h3 className="text-lg font-semibold">Share this article</h3>
-                <div className="flex gap-2">
-                  <Button variant="outline" size="sm">
-                    <Share2 className="w-4 h-4 mr-2" />
-                    Share
-                  </Button>
-                  <Button variant="outline" size="sm">
-                    <ExternalLink className="w-4 h-4 mr-2" />
-                    Open Original
-                  </Button>
-                </div>
-              </div>
             </div>
           </div>
 
