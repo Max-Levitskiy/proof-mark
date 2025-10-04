@@ -4,15 +4,9 @@ import { Badge } from "@/components/ui/badge";
 import { TrustScoreBadge } from "./TrustScoreBadge";
 import { Image } from "@/components/Image";
 import { Sparkles } from "lucide-react";
+import { NewsCardDto } from "@/types/news";
 
-interface NewsCardProps {
-  id: string;
-  image: string;
-  headline: string;
-  description: string;
-  category: string;
-  trustScore: number;
-  trustExplanation: string;
+interface NewsCardProps extends NewsCardDto {
   onCardClick: (id: string) => void;
   onDetailedAnalysis: (id: string, headline: string) => void;
   onTrustScoreClick: (score: number, explanation: string, headline: string) => void;
