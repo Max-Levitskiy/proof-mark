@@ -85,31 +85,33 @@ export function ArticleComments({ articleId, userId }: ArticleCommentsProps) {
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Article Reactions */}
-          <div>
-            <h3 className="text-sm font-medium mb-3 text-gray-400">
-              Rate this article
-            </h3>
-            <div className="flex items-center gap-3">
-              <ReactionButtons
-                likeCount={reactions?.likeCount || 0}
-                dislikeCount={reactions?.dislikeCount || 0}
-                userReaction={reactions?.userReaction || null}
-                onReaction={handleReaction}
-                disabled={!userId}
-              />
-              
-              {/* Proof Button - only show if reacted and haven't commented yet */}
-              {userId && reactions?.userReaction && !userHasCommented && !showCommentForm && (
-                <Button
-                  onClick={() => setShowCommentForm(true)}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                >
-                  <MessageSquarePlus className="w-4 h-4 mr-2" />
-                  I have a proof
-                </Button>
-              )}
+          {userId && (
+            <div>
+              <h3 className="text-sm font-medium mb-3 text-gray-400">
+                Rate this article
+              </h3>
+              <div className="flex items-center gap-3">
+                <ReactionButtons
+                  likeCount={reactions?.likeCount || 0}
+                  dislikeCount={reactions?.dislikeCount || 0}
+                  userReaction={reactions?.userReaction || null}
+                  onReaction={handleReaction}
+                  disabled={false}
+                />
+                
+                {/* Proof Button - only show if reacted and haven't commented yet */}
+                {reactions?.userReaction && !userHasCommented && !showCommentForm && (
+                  <Button
+                    onClick={() => setShowCommentForm(true)}
+                    className="bg-blue-600 hover:bg-blue-700 text-white"
+                  >
+                    <MessageSquarePlus className="w-4 h-4 mr-2" />
+                    I have a proof
+                  </Button>
+                )}
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Comment Form */}
           {showCommentForm && !userHasCommented && (

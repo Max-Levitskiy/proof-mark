@@ -135,13 +135,13 @@ export function CommentItem({
 
           {/* Actions */}
           <div className="flex items-center gap-3 mb-2">
-            {!isOwnComment && (
+            {!isOwnComment && currentUserId && (
               <ReactionButtons
                 likeCount={comment.likeCount}
                 dislikeCount={comment.dislikeCount}
                 userReaction={userReaction || null}
                 onReaction={handleReaction}
-                disabled={!currentUserId}
+                disabled={false}
                 size="sm"
               />
             )}
