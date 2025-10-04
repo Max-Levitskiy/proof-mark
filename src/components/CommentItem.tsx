@@ -154,7 +154,7 @@ export function CommentItem({
                 disabled={hasReplied}
                 className={
                   hasReplied
-                    ? 'text-gray-500 h-7 px-2 cursor-default'
+                    ? 'text-gray-500 h-7 px-2 cursor-default disabled:pointer-events-none disabled:hover:text-gray-500 disabled:hover:bg-transparent'
                     : 'text-gray-400 hover:text-gray-200 h-7 px-2'
                 }
               >

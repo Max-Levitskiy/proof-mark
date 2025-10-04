@@ -37,8 +37,8 @@ export function ReactionButtons({
         disabled={isDisabled}
         className={
           userReaction === 'like'
-            ? 'bg-green-600 hover:bg-green-600 text-white border-green-600 cursor-default'
-            : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600'
+            ? 'bg-green-600 hover:bg-green-600 text-white border-green-600 cursor-default disabled:pointer-events-none'
+            : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600 disabled:hover:bg-transparent disabled:hover:border-gray-700 disabled:cursor-not-allowed'
         }
       >
         <ThumbsUp className={`${iconSize} mr-1.5`} />
@@ -52,8 +52,8 @@ export function ReactionButtons({
         disabled={isDisabled}
         className={
           userReaction === 'dislike'
-            ? 'bg-red-600 hover:bg-red-600 text-white border-red-600 cursor-default'
-            : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600'
+            ? 'bg-red-600 hover:bg-red-600 text-white border-red-600 cursor-default disabled:pointer-events-none'
+            : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600 disabled:hover:bg-transparent disabled:hover:border-gray-700 disabled:cursor-not-allowed'
         }
       >
         <ThumbsDown className={`${iconSize} mr-1.5`} />
