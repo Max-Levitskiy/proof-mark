@@ -15,7 +15,7 @@ import {
   WhatsappIcon,
   RedditIcon,
 } from 'react-share'
-import { Check, Copy, X } from 'lucide-react'
+import { Check, Copy } from 'lucide-react'
 
 interface ShareModalProps {
   isOpen: boolean
