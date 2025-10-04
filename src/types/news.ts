@@ -6,4 +6,5 @@ export interface NewsCardDto {
   category: string
   trustScore: number
   trustExplanation: string
+  publishedAt?: string
 }

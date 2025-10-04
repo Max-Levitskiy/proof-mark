@@ -117,6 +117,7 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick, user, authLo
                   variant="outline"
                   size="sm"
                   onClick={() => setShareModalOpen(true)}
+                  className="bg-gray-900/80 backdrop-blur-sm border-gray-700/50 hover:bg-gray-800/90 hover:border-gray-600/50"
                 >
                   <Share2 className="w-4 h-4 mr-2" />
                   Share

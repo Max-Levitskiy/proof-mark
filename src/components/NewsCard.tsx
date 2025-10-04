@@ -12,14 +12,46 @@ interface NewsCardProps extends NewsCardDto {
   onTrustScoreClick: (score: number, explanation: string, headline: string) => void;
 }
 
-export function NewsCard({ 
-  id, 
-  image, 
-  headline, 
-  description, 
-  category, 
-  trustScore, 
+function formatTimeAgo(dateString?: string): string {
+  if (!dateString) return '';
+
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffInMs = now.getTime() - date.getTime();
+  const diffInMinutes = Math.floor(diffInMs / 60000);
+  const diffInHours = Math.floor(diffInMinutes / 60);
+
+  // Less than 1 hour
+  if (diffInMinutes < 60) {
+    if (diffInMinutes < 1) return 'just now';
+    return `${diffInMinutes} ${diffInMinutes === 1 ? 'minute' : 'minutes'} ago`;
+  }
+
+  // 1-3 hours
+  if (diffInHours <= 3) {
+    return `${diffInHours} ${diffInHours === 1 ? 'hour' : 'hours'} ago`;
+  }
+
+  // More than 3 hours but same day - show "today HH:MM"
+  const isToday = date.toDateString() === now.toDateString();
+  if (isToday) {
+    const timeStr = date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: false });
+    return `today ${timeStr}`;
+  }
+
+  // More than 1 day - just show date
+  return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+export function NewsCard({
+  id,
+  image,
+  headline,
+  description,
+  category,
+  trustScore,
   trustExplanation,
+  publishedAt,
   onCardClick,
   onDetailedAnalysis,
   onTrustScoreClick
@@ -60,7 +92,7 @@ export function NewsCard({
 
           <div className="flex items-center justify-between pt-1">
             <div className="flex items-center text-xs text-muted-foreground">
-              <span>2 hours ago</span>
+              <span>{formatTimeAgo(publishedAt)}</span>
             </div>
 
             <Button
