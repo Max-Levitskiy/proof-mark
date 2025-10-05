@@ -1,0 +1,7 @@
+# Dependencies layer requirements
+# Heavy ML dependencies that will be packaged as a Lambda layer
+
+sentence-transformers>=3.3.0
+torch>=2.5.0
+transformers>=4.47.0
+numpy>=1.26.0
