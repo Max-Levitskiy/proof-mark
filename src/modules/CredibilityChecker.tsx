@@ -9,6 +9,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { supabase } from "@/lib/supabase";
 import { ArticleAnalysisCard } from "@/components/ArticleAnalysisCard";
+import { MOCK_ANALYSIS_RESPONSE } from "@/data/mockAnalysisData";
 
 interface ArticleResult {
   similarity: number;
@@ -244,6 +245,16 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                   We couldn't find any articles similar to your text. Try analyzing different content or check back later.
                 </p>
               </div>
+              <Button
+                onClick={() => {
+                  setAnalysisError(false);
+                  setAnalysis(MOCK_ANALYSIS_RESPONSE as AnalysisResponse);
+                }}
+                variant="outline"
+                className="border-gray-700 hover:bg-gray-800/50"
+              >
+                Show Test Data
+              </Button>
             </div>
           </CardContent>
         </Card>
