@@ -88,7 +88,7 @@ export function ArticleComments({ articleId, userId }: ArticleCommentsProps) {
           {userId && (
             <div>
               <h3 className="text-sm font-medium mb-3 text-gray-400">
-                Rate this article
+                Is this article true or fake?
               </h3>
               <div className="flex items-center gap-3">
                 <ReactionButtons

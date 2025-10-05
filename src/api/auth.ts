@@ -1,10 +1,14 @@
 import { supabase } from '@/lib/supabase'
 
 export async function signInWithGoogle() {
+  // Encode current URL to pass through OAuth flow
+  const returnUrl = window.location.pathname + window.location.search
+  const encodedReturnUrl = encodeURIComponent(returnUrl)
+
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `${window.location.origin}/auth/callback`,
+      redirectTo: `${window.location.origin}/auth/callback?returnUrl=${encodedReturnUrl}`,
     },
   })
 

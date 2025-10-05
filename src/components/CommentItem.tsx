@@ -106,7 +106,7 @@ export function CommentItem({
   const hasReplies = comment.replies && comment.replies.length > 0
 
   return (
-    <div className={depth > 0 ? 'ml-8 mt-4' : 'mt-4'}>
+    <div className={depth > 0 ? 'mt-4' : 'mt-4'}>
       <div className="flex gap-3">
         {/* Avatar */}
         <Avatar className="w-8 h-8 mt-1">
@@ -168,7 +168,7 @@ export function CommentItem({
                 variant="ghost"
                 size="sm"
                 onClick={() => setIsCollapsed(!isCollapsed)}
-                className="text-gray-400 hover:text-gray-200 h-7 px-2"
+                className="text-gray-400 hover:text-gray-200 h-7 !px-1.5"
               >
                 {isCollapsed ? (
                   <>

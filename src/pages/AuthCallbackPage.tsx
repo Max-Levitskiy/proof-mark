@@ -19,7 +19,11 @@ export default function AuthCallbackPage() {
         });
       }
 
-      navigate('/');
+      // Get return URL from query parameters
+      const searchParams = new URLSearchParams(window.location.search);
+      const returnUrl = searchParams.get('returnUrl') || '/';
+      
+      navigate(returnUrl);
     };
 
     handleCallback();

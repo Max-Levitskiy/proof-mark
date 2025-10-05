@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button'
-import { ThumbsUp, ThumbsDown } from 'lucide-react'
+import { CheckCircle, AlertTriangle } from 'lucide-react'
 import type { Database } from '@/types/supabase'
 
 type ReactionType = Database['public']['Enums']['reaction_type']
 
 interface ReactionButtonsProps {
-  likeCount: number
-  dislikeCount: number
+  likeCount: number // Will represent "True" count
+  dislikeCount: number // Will represent "Fake" count
   userReaction: ReactionType | null
   onReaction: (type: ReactionType) => void
   disabled?: boolean
@@ -41,8 +41,8 @@ export function ReactionButtons({
             : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600 disabled:hover:bg-transparent disabled:hover:border-gray-700 disabled:cursor-not-allowed'
         }
       >
-        <ThumbsUp className={`${iconSize} mr-1.5`} />
-        <span className={isSmall ? 'text-xs' : 'text-sm'}>{likeCount}</span>
+        <CheckCircle className={`${iconSize} mr-1.5`} />
+        <span className={isSmall ? 'text-xs' : 'text-sm'}>True {likeCount > 0 && `(${likeCount})`}</span>
       </Button>
 
       <Button
@@ -56,8 +56,8 @@ export function ReactionButtons({
             : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600 disabled:hover:bg-transparent disabled:hover:border-gray-700 disabled:cursor-not-allowed'
         }
       >
-        <ThumbsDown className={`${iconSize} mr-1.5`} />
-        <span className={isSmall ? 'text-xs' : 'text-sm'}>{dislikeCount}</span>
+        <AlertTriangle className={`${iconSize} mr-1.5`} />
+        <span className={isSmall ? 'text-xs' : 'text-sm'}>Fake {dislikeCount > 0 && `(${dislikeCount})`}</span>
       </Button>
     </div>
   )
