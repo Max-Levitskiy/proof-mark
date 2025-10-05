@@ -59,6 +59,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
   const [analysis, setAnalysis] = useState<AnalysisResponse | null>(null);
   const [deepResearch, setDeepResearch] = useState(false);
   const [analysisError, setAnalysisError] = useState(false);
+  const [displayLimit, setDisplayLimit] = useState(20);
 
   const detectLinks = (text: string) => {
     const urlRegex = /(https?:\/\/[^\s]+|www\.[^\s]+|[^\s]+\.[^\s]{2,})/gi;
@@ -82,6 +83,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
     setIsAnalyzing(true);
     setAnalysisError(false);
     setAnalysis(null);
+    setDisplayLimit(20); // Reset display limit on new analysis
 
     try {
       // Call Supabase Edge Function to get embeddings and similar articles
@@ -93,9 +95,12 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
         console.error('Error calling get-embeddings function:', error);
         console.error('Error details:', error);
         setAnalysisError(true);
-      } else {
+      } else if (data && data.order && data.order.length > 0) {
         // Set the response with similar articles
         setAnalysis(data as AnalysisResponse);
+      } else {
+        // No data found - show nothing found message without test data button
+        setAnalysis(null);
       }
     } catch (err) {
       console.error('Error analyzing text:', err);
@@ -210,8 +215,12 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
           </div>
 
           <div className="space-y-8">
-            {analysis.order.map((key) => {
+            {analysis.order.slice(0, displayLimit).map((key) => {
               const result = analysis.resultsByKey[key];
+              if (!result || !result.article) {
+                return null;
+              }
+
               const { article } = result;
 
               return (
@@ -220,7 +229,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                   headline={article.headline}
                   content={article.content}
                   trustScore={article.trust_score}
-                  source={article.source.title}
+                  source={article.source?.title || 'Unknown Source'}
                   publishedAt={article.published_at}
                   similarity={result.similarity}
                   originalLink={article.original_link}
@@ -229,6 +238,18 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
               );
             })}
           </div>
+
+          {analysis.order.length > displayLimit && (
+            <div className="flex justify-center pt-4">
+              <Button
+                onClick={() => setDisplayLimit(prev => prev + 20)}
+                variant="outline"
+                className="border-gray-700 hover:bg-gray-800/50"
+              >
+                Show More ({analysis.order.length - displayLimit} remaining)
+              </Button>
+            </div>
+          )}
         </div>
       )}
 
@@ -240,9 +261,9 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                 <Search className="w-8 h-8 text-gray-500" />
               </div>
               <div className="space-y-2">
-                <h3 className="text-xl font-semibold text-gray-100">No Similar Articles Found</h3>
+                <h3 className="text-xl font-semibold text-gray-100">Error Analyzing Content</h3>
                 <p className="text-sm text-gray-500 max-w-md mx-auto">
-                  We couldn't find any articles similar to your text. Try analyzing different content or check back later.
+                  We encountered an error while analyzing your text. Please try again.
                 </p>
               </div>
               <Button
@@ -255,6 +276,24 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
               >
                 Show Test Data
               </Button>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
+      {!analysis && !isAnalyzing && !analysisError && text.trim() && !hasError && (
+        <Card className="bg-card border-gray-800">
+          <CardContent className="p-8 text-center">
+            <div className="space-y-4">
+              <div className="w-16 h-16 mx-auto rounded-full bg-gray-800/50 flex items-center justify-center">
+                <Search className="w-8 h-8 text-gray-500" />
+              </div>
+              <div className="space-y-2">
+                <h3 className="text-xl font-semibold text-gray-100">No Similar Articles Found</h3>
+                <p className="text-sm text-gray-500 max-w-md mx-auto">
+                  We couldn't find any articles similar to your text. Try analyzing different content or check back later.
+                </p>
+              </div>
             </div>
           </CardContent>
         </Card>

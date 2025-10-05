@@ -116,12 +116,40 @@ export function ArticleAnalysisCard({
                 </div>
               )}
             </div>
-            <div className="bg-[rgba(49,255,142,0.05)] rounded-lg p-2 flex items-center gap-2">
-              <span className="text-2xl font-semibold text-[rgba(49,255,142,0.2)]">
+            <div className={`rounded-lg p-2 flex items-center gap-2 ${
+              trustScore >= 60
+                ? 'bg-[rgba(49,255,142,0.05)]'
+                : trustScore >= 40
+                ? 'bg-gray-600/5'
+                : trustScore >= 20
+                ? 'bg-yellow-600/5'
+                : 'bg-red-600/5'
+            }`}>
+              <span className={`text-2xl font-semibold ${
+                trustScore >= 60
+                  ? 'text-[rgba(49,255,142,0.2)]'
+                  : trustScore >= 40
+                  ? 'text-gray-400/20'
+                  : trustScore >= 20
+                  ? 'text-yellow-400/20'
+                  : 'text-red-400/20'
+              }`}>
                 {trustScore.toFixed(2)}
               </span>
-              <div className="bg-[#31ff8e] rounded px-2 py-1">
-                <span className="text-[#0a331c] font-semibold text-xl">
+              <div className={`rounded px-2 py-1 ${
+                trustScore >= 60
+                  ? 'bg-[#31ff8e]'
+                  : trustScore >= 40
+                  ? 'bg-gray-600'
+                  : trustScore >= 20
+                  ? 'bg-yellow-600'
+                  : 'bg-red-600'
+              }`}>
+                <span className={`font-semibold text-xl ${
+                  trustScore >= 60
+                    ? 'text-[#0a331c]'
+                    : 'text-white'
+                }`}>
                   {trustScore >= 80 ? 'AAA' : trustScore >= 60 ? 'AA' : trustScore >= 40 ? 'A' : trustScore >= 20 ? 'B' : 'C'}
                 </span>
               </div>
