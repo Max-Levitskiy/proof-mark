@@ -1,5 +1,6 @@
 export interface TrustScoreModalData {
   score: number
+  confidenceLevel: number
   explanation: string
   headline: string
 }

@@ -5,6 +5,7 @@ export interface NewsCardDto {
   description: string
   category: string
   trustScore: number
+  confidenceLevel: number
   trustExplanation: string
   publishedAt?: string
 }

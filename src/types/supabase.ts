@@ -390,6 +390,7 @@ export type Database = {
         Row: {
           author: Json | null
           category: Json
+          confidence_level: number
           content: string | null
           created_at: string
           description: string | null
@@ -413,6 +414,7 @@ export type Database = {
         Insert: {
           author?: Json | null
           category?: Json
+          confidence_level?: number
           content?: string | null
           created_at?: string
           description?: string | null
@@ -436,6 +438,7 @@ export type Database = {
         Update: {
           author?: Json | null
           category?: Json
+          confidence_level?: number
           content?: string | null
           created_at?: string
           description?: string | null

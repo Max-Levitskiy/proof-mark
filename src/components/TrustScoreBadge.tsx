@@ -4,11 +4,12 @@ import { Info } from "lucide-react";
 
 interface TrustScoreBadgeProps {
   score: number;
-  explanation: string;
+  confidenceLevel: number;
+  explanation?: string;
   onOpenModal: () => void;
 }
 
-export function TrustScoreBadge({ score, onOpenModal }: TrustScoreBadgeProps) {
+export function TrustScoreBadge({ score, confidenceLevel, onOpenModal }: TrustScoreBadgeProps) {
   const getScoreRank = (score: number) => {
     if (score >= 80) return "AAA";
     if (score >= 60) return "AA";
@@ -33,6 +34,7 @@ export function TrustScoreBadge({ score, onOpenModal }: TrustScoreBadgeProps) {
     >
       <Badge className={`${getScoreColor(score)} text-white hover:opacity-80 cursor-pointer transition-opacity border-0`}>
         <span>{getScoreRank(score)} ({score})</span>
+        <span className="ml-2 text-xs opacity-90">Conf {confidenceLevel}%</span>
         <Info className="w-3 h-3 ml-1" />
       </Badge>
     </Button>

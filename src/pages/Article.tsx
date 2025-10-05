@@ -16,6 +16,7 @@ export function Article() {
 
   const trustScoreModal = useModal<TrustScoreModalData>({
     score: 0,
+    confidenceLevel: 0,
     explanation: '',
     headline: '',
   })
@@ -40,8 +41,8 @@ export function Article() {
   }, [navigate])
 
   const handleTrustScoreClick = useCallback(
-    (score: number, explanation: string, headline: string) => {
-      trustScoreModal.open({ score, explanation, headline })
+    (score: number, confidenceLevel: number, explanation: string, headline: string) => {
+      trustScoreModal.open({ score, confidenceLevel, explanation, headline })
     },
     [trustScoreModal]
   )
@@ -86,6 +87,7 @@ export function Article() {
         isOpen={trustScoreModal.state.isOpen}
         onClose={trustScoreModal.close}
         score={trustScoreModal.state.data.score}
+        confidenceLevel={trustScoreModal.state.data.confidenceLevel}
         explanation={trustScoreModal.state.data.explanation}
         newsHeadline={trustScoreModal.state.data.headline}
       />

@@ -15,6 +15,7 @@ export interface NewsArticle {
   timestamp?: string
   image: string
   trustScore: number
+  confidenceLevel: number
   trustExplanation: string
   content?: string
   author?: string
@@ -96,7 +97,8 @@ function transformNewsArticle(row: NewsArticleRow): NewsArticle {
     description: row.description || '',
     category,
     image: row.image || '',
-    trustScore: row.trust_score ?? 0,
+    trustScore: row.trust_score ?? 50,
+    confidenceLevel: row.confidence_level ?? 0,
     trustExplanation: row.trust_explanation || '',
     content: row.content || undefined,
     author,

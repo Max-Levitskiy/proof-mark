@@ -9,7 +9,7 @@ import { NewsCardDto } from "@/types/news";
 interface NewsCardProps extends NewsCardDto {
   onCardClick: (id: string) => void;
   onDetailedAnalysis: (id: string, headline: string) => void;
-  onTrustScoreClick: (score: number, explanation: string, headline: string) => void;
+  onTrustScoreClick: (score: number, confidenceLevel: number, explanation: string, headline: string) => void;
 }
 
 function formatTimeAgo(dateString?: string): string {
@@ -50,6 +50,7 @@ export function NewsCard({
   description,
   category,
   trustScore,
+  confidenceLevel,
   trustExplanation,
   publishedAt,
   onCardClick,
@@ -72,8 +73,9 @@ export function NewsCard({
           <div className="absolute top-3 right-3" onClick={(e) => e.stopPropagation()}>
             <TrustScoreBadge
               score={trustScore}
+              confidenceLevel={confidenceLevel}
               explanation={trustExplanation}
-              onOpenModal={() => onTrustScoreClick(trustScore, trustExplanation, headline)}
+              onOpenModal={() => onTrustScoreClick(trustScore, confidenceLevel, trustExplanation, headline)}
             />
           </div>
         </div>

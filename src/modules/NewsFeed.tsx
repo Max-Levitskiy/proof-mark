@@ -5,7 +5,7 @@ import { useNews } from "@/api/news";
 interface NewsFeedProps {
   onNewsCardClick: (id: string) => void;
   onDetailedAnalysis: (id: string, headline: string) => void;
-  onTrustScoreClick: (score: number, explanation: string, headline: string) => void;
+  onTrustScoreClick: (score: number, confidenceLevel: number, explanation: string, headline: string) => void;
 }
 
 export function NewsFeed({ onNewsCardClick, onDetailedAnalysis, onTrustScoreClick }: NewsFeedProps) {

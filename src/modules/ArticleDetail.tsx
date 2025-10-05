@@ -21,7 +21,7 @@ import type { User } from '@/types/user'
 interface ArticleDetailProps {
   article: NewsArticle
   onBack: () => void
-  onTrustScoreClick: (score: number, explanation: string, headline: string) => void
+  onTrustScoreClick: (score: number, confidenceLevel: number, explanation: string, headline: string) => void
   user: User | null
   authLoading?: boolean
   onSignIn: () => void
@@ -140,10 +140,12 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick, user, authLo
                     <span>Credibility Score</span>
                     <TrustScoreBadge
                       score={article.trustScore}
+                      confidenceLevel={article.confidenceLevel}
                       explanation={article.trustExplanation}
                       onOpenModal={() =>
                         onTrustScoreClick(
                           article.trustScore,
+                          article.confidenceLevel,
                           article.trustExplanation,
                           article.headline
                         )

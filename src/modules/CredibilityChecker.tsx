@@ -10,7 +10,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 
 interface CredibilityCheckerProps {
   onDeepResearchToggle: () => void;
-  onTrustScoreClick: (score: number, explanation: string, headline: string) => void;
+  onTrustScoreClick: (score: number, confidenceLevel: number, explanation: string, headline: string) => void;
 }
 
 export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerProps) {

@@ -8,11 +8,12 @@ interface TrustScoreModalProps {
   isOpen: boolean;
   onClose: () => void;
   score: number;
+  confidenceLevel: number;
   explanation: string;
   newsHeadline?: string;
 }
 
-export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadline }: TrustScoreModalProps) {
+export function TrustScoreModal({ isOpen, onClose, score, confidenceLevel, explanation, newsHeadline }: TrustScoreModalProps) {
   const getScoreRank = (score: number) => {
     if (score >= 80) return "AAA";
     if (score >= 60) return "AA";
@@ -94,6 +95,15 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
               </div>
               <Progress value={score} className="h-2" />
             </div>
+
+            {/* Confidence Level */}
+            <div className="space-y-2">
+              <div className="flex justify-between text-sm text-gray-100">
+                <span>Confidence Level</span>
+                <span>{confidenceLevel}%</span>
+              </div>
+              <Progress value={confidenceLevel} className="h-2" />
+            </div>
           </div>
 
           {/* Score Meaning */}
@@ -104,6 +114,16 @@ export function TrustScoreModal({ isOpen, onClose, score, explanation, newsHeadl
             </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               {scoreInfo.description}
+            </p>
+          </div>
+
+          <Separator className="my-6 bg-gray-700" />
+
+          {/* Confidence Level Explanation */}
+          <div className="space-y-3">
+            <h4 className="font-medium text-sm text-gray-100">Confidence Level</h4>
+            <p className="text-sm text-gray-400 leading-relaxed">
+              The confidence level reflects how certain the AI system is about this trust score assessment, based on the quality and consistency of detected signals. Higher values indicate more certainty in the evaluation.
             </p>
           </div>
 
