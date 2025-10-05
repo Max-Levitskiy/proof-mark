@@ -33,14 +33,14 @@ export function VideoPlayer() {
           <div className="absolute inset-0 flex items-center justify-center">
             <Button
               onClick={handlePlayClick}
-              className="w-20 h-20 rounded-full bg-[#0066FF]/20 hover:bg-[#0066FF]/30 backdrop-blur-sm border border-[#0066FF]/30 transition-all duration-300 hover:scale-110"
+              className="w-20 h-20 rounded-full bg-black/40 hover:bg-black/60 backdrop-blur-sm border border-white/20 transition-all duration-300 hover:scale-110"
             >
-              <Play className="w-8 h-8 text-[#0066FF] ml-1" fill="currentColor" />
+              <Play className="w-8 h-8 text-white" fill="currentColor" />
             </Button>
           </div>
 
           {/* Video title overlay */}
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent px-6 pt-8 pb-6">
             <h2 className="text-2xl font-bold text-white mb-2">
               How ProofMark AI Detects Misinformation
             </h2>

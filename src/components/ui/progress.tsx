@@ -15,6 +15,7 @@ function Progress({
 }) {
   const scoreColor =
     (value || 0) >= 60 ? "bg-green-600" :
+    (value || 0) >= 40 ? "bg-gray-600" :
     (value || 0) >= 20 ? "bg-yellow-600" :
     "bg-red-600";
 

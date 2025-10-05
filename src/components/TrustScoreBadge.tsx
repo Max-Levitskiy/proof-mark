@@ -20,7 +20,8 @@ export function TrustScoreBadge({ score, confidenceLevel, onOpenModal }: TrustSc
 
   const getScoreColor = (score: number) => {
     if (score >= 60) return "bg-green-600"; // AAA and AA (darker green)
-    if (score >= 20) return "bg-yellow-600"; // A and B (darker yellow)
+    if (score >= 40) return "bg-gray-600"; // A (neutral gray)
+    if (score >= 20) return "bg-yellow-600"; // B (darker yellow)
     return "bg-red-600"; // C (darker red)
   };
 

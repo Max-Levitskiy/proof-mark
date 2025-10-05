@@ -24,6 +24,7 @@ export function TrustScoreModal({ isOpen, onClose, score, confidenceLevel, expla
 
   const getScoreColor = (score: number) => {
     if (score >= 60) return "bg-green-600";
+    if (score >= 40) return "bg-gray-600";
     if (score >= 20) return "bg-yellow-600";
     return "bg-red-600";
   };
@@ -42,7 +43,7 @@ export function TrustScoreModal({ isOpen, onClose, score, confidenceLevel, expla
     if (score >= 40) return {
       title: "Moderate Credibility",
       description: "Mixed reliability indicators. Some concerns about sourcing, bias, or accuracy detected. Cross-reference with other sources recommended.",
-      icon: <AlertCircle className="w-5 h-5 text-yellow-600" />
+      icon: <AlertCircle className="w-5 h-5 text-gray-600" />
     };
     if (score >= 20) return {
       title: "Low Credibility",
@@ -159,7 +160,7 @@ export function TrustScoreModal({ isOpen, onClose, score, confidenceLevel, expla
               </div>
               <div className="flex justify-between items-center">
                 <span className="flex items-center gap-2 text-gray-100">
-                  <div className="w-3 h-3 bg-yellow-600 rounded"></div>
+                  <div className="w-3 h-3 bg-gray-600 rounded"></div>
                   A (40-59)
                 </span>
                 <span className="text-gray-400">Moderate</span>

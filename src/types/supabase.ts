@@ -410,6 +410,7 @@ export type Database = {
           trust_explanation: string | null
           trust_score: number | null
           updated_at: string
+          user_score: number
         }
         Insert: {
           author?: Json | null
@@ -434,6 +435,7 @@ export type Database = {
           trust_explanation?: string | null
           trust_score?: number | null
           updated_at?: string
+          user_score?: number
         }
         Update: {
           author?: Json | null
@@ -458,6 +460,7 @@ export type Database = {
           trust_explanation?: string | null
           trust_score?: number | null
           updated_at?: string
+          user_score?: number
         }
         Relationships: []
       }
@@ -603,7 +606,7 @@ export type Database = {
       }
     }
     Enums: {
-      reaction_type: "like" | "dislike"
+      reaction_type: "true" | "fake"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -731,7 +734,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      reaction_type: ["like", "dislike"],
+      reaction_type: ["true", "fake"],
     },
   },
 } as const

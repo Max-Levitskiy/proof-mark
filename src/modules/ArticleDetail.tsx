@@ -12,6 +12,8 @@ import {
   User as UserIcon,
   MapPin,
   Share2,
+  ThumbsUp,
+  ThumbsDown,
 } from 'lucide-react'
 import { Image } from '@/components/Image'
 import { NewsArticle } from '@/api/news'
@@ -176,6 +178,24 @@ export function ArticleDetail({ article, onBack, onTrustScoreClick, user, authLo
                     <div>
                       <p className="font-medium mb-1">Sources Verified</p>
                       <p className="text-gray-500">{article.sourcesVerified || '--'}</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* User Score Card */}
+              <Card className="bg-card border-gray-800">
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-lg font-semibold">User Score</h3>
+                    <div className={`px-3 py-1 rounded-lg font-semibold text-2xl ${
+                      article.userScore > 50
+                        ? 'bg-green-600/20 text-green-500'
+                        : article.userScore < 50
+                        ? 'bg-red-600/20 text-red-500'
+                        : 'bg-gray-600/20 text-gray-400'
+                    }`}>
+                      {article.userScore}
                     </div>
                   </div>
                 </CardContent>

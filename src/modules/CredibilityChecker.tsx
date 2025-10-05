@@ -225,7 +225,7 @@ export function CredibilityChecker({ onDeepResearchToggle }: CredibilityCheckerP
                           <div className="space-y-2">
                             <p><strong className="text-gray-100">AAA (80-100):</strong> <span className="text-[#31ff8e]">Highly reliable</span> <span className="text-gray-500">- Multiple verified sources, strong factual accuracy</span></p>
                             <p><strong className="text-gray-100">AA (60-79):</strong> <span className="text-[#31ff8e]">Generally reliable</span> <span className="text-gray-500">- Good sourcing with minor concerns</span></p>
-                            <p><strong className="text-gray-100">A (40-59):</strong> <span className="text-yellow-500">Moderate reliability</span> <span className="text-gray-500">- Mixed indicators, verify independently</span></p>
+                            <p><strong className="text-gray-100">A (40-59):</strong> <span className="text-gray-500">Moderate reliability</span> <span className="text-gray-500">- Mixed indicators, verify independently</span></p>
                             <p><strong className="text-gray-100">B (20-39):</strong> <span className="text-yellow-500">Low reliability</span> <span className="text-gray-500">- Significant credibility concerns</span></p>
                             <p><strong className="text-gray-100">C (0-19):</strong> <span className="text-red-500">Unreliable</span> <span className="text-gray-500">- High risk of misinformation</span></p>
                           </div>
