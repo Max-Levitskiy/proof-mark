@@ -27,6 +27,12 @@ export function ArticleAnalysisCard({
   const navigate = useNavigate();
   const [activeTooltip, setActiveTooltip] = useState<number | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
+  const [isContentExpanded, setIsContentExpanded] = useState(false);
+
+  const shouldTruncateContent = content.length > 200;
+  const displayContent = shouldTruncateContent && !isContentExpanded
+    ? content.slice(0, 200) + '...'
+    : content;
 
   // const analysisFactors = [
   //   {
@@ -159,7 +165,15 @@ export function ArticleAnalysisCard({
 
         {/* Content - Full Width */}
         <div className="text-sm text-gray-500 space-y-3 leading-relaxed">
-          <p>{content}</p>
+          <p>{displayContent}</p>
+          {shouldTruncateContent && (
+            <button
+              onClick={() => setIsContentExpanded(!isContentExpanded)}
+              className="text-[#0066FF] hover:text-[#0056e6] text-sm font-medium transition-colors"
+            >
+              {isContentExpanded ? 'Show less' : 'Show more'}
+            </button>
+          )}
         </div>
 
         {/* Analysis Factors - Commented out for now */}
