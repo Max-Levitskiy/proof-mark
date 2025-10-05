@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { Zap, Mail, CheckCircle, ArrowRight } from "lucide-react";
+import { Zap, Mail, CheckCircle, ArrowRight, AlertCircle } from "lucide-react";
+import { useAuth } from "@/api/AuthContext";
+import { useSubscribeToFeature } from "@/api/subscriptions";
 
 interface SignUpModalProps {
   isOpen: boolean;
@@ -12,27 +14,46 @@ interface SignUpModalProps {
 }
 
 export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
+  const { user } = useAuth();
+  const subscribeMutation = useSubscribeToFeature();
+  
   const [email, setEmail] = useState("");
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isAlreadySubscribed, setIsAlreadySubscribed] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  // Prefill email when logged in
+  useEffect(() => {
+    if (user?.email && !email) {
+      setEmail(user.email);
+    }
+  }, [user, email]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim()) return;
     
-    setIsSubmitting(true);
+    setErrorMessage("");
     
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
+    const result = await subscribeMutation.mutateAsync({
+      email,
+      featureName: 'deep_research_mode',
+      userId: user?.id ?? null,
+    });
     
-    setIsSubmitting(false);
-    setIsSubmitted(true);
+    if (result.success) {
+      setIsSubmitted(true);
+      setIsAlreadySubscribed(Boolean(result.alreadySubscribed));
+    } else {
+      setErrorMessage(result.error || 'Something went wrong. Please try again.');
+    }
   };
 
   const handleClose = () => {
     setEmail("");
-    setIsSubmitting(false);
     setIsSubmitted(false);
+    setIsAlreadySubscribed(false);
+    setErrorMessage("");
     onClose();
   };
 
@@ -88,13 +109,20 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
                 />
               </div>
 
+              {errorMessage && (
+                <div className="flex items-center gap-2 text-sm text-red-400 bg-red-900/20 border border-red-900/30 rounded-md p-3">
+                  <AlertCircle className="w-4 h-4 flex-shrink-0" />
+                  <span>{errorMessage}</span>
+                </div>
+              )}
+
               <Button
                 type="submit"
-                disabled={isSubmitting || !email.trim()}
+                disabled={subscribeMutation.isPending || !email.trim()}
                 className="w-full bg-[#0066FF] hover:bg-[#0056e6] text-white"
               >
                 <Mail className="w-4 h-4 mr-2" />
-                {isSubmitting ? "Subscribing..." : "Subscribe for Updates"}
+                {subscribeMutation.isPending ? "Subscribing..." : "Subscribe for Updates"}
               </Button>
             </form>
 
@@ -109,9 +137,14 @@ export function SignUpModal({ isOpen, onClose }: SignUpModalProps) {
             </div>
 
             <div className="space-y-2">
-              <h4 className="font-semibold text-gray-100">You're All Set!</h4>
+              <h4 className="font-semibold text-gray-100">
+                {isAlreadySubscribed ? "You're already subscribed!" : "You're All Set!"}
+              </h4>
               <p className="text-sm text-gray-400">
-                We'll notify you at <strong className="text-gray-100">{email}</strong> when Deep Research mode is available.
+                {isAlreadySubscribed
+                  ? (<>We found an existing subscription for <strong className="text-gray-100">{email}</strong> to Deep Research mode updates.</>)
+                  : (<>We'll notify you at <strong className="text-gray-100">{email}</strong> when Deep Research mode is available.</>)
+                }
               </p>
             </div>
 

@@ -114,6 +114,153 @@ export type Database = {
           },
         ]
       }
+      claim_mentions: {
+        Row: {
+          article_id: string
+          claim_id: number
+          cluster_id: number | null
+          created_at: string | null
+          id: number
+          sentence: string
+          sentence_ids: number[] | null
+        }
+        Insert: {
+          article_id: string
+          claim_id: number
+          cluster_id?: number | null
+          created_at?: string | null
+          id?: number
+          sentence: string
+          sentence_ids?: number[] | null
+        }
+        Update: {
+          article_id?: string
+          claim_id?: number
+          cluster_id?: number | null
+          created_at?: string | null
+          id?: number
+          sentence?: string
+          sentence_ids?: number[] | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "claim_mentions_article_id_fkey"
+            columns: ["article_id"]
+            isOneToOne: false
+            referencedRelation: "content_embeddings"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "claim_mentions_claim_id_fkey"
+            columns: ["claim_id"]
+            isOneToOne: false
+            referencedRelation: "claims"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "claim_mentions_cluster_id_fkey"
+            columns: ["cluster_id"]
+            isOneToOne: false
+            referencedRelation: "story_clusters"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      claim_verifications: {
+        Row: {
+          checked_at: string | null
+          claim_id: number
+          confidence: number | null
+          id: number
+          publisher: string | null
+          raw: Json | null
+          source: string | null
+          url: string | null
+          verdict: string | null
+        }
+        Insert: {
+          checked_at?: string | null
+          claim_id: number
+          confidence?: number | null
+          id?: number
+          publisher?: string | null
+          raw?: Json | null
+          source?: string | null
+          url?: string | null
+          verdict?: string | null
+        }
+        Update: {
+          checked_at?: string | null
+          claim_id?: number
+          confidence?: number | null
+          id?: number
+          publisher?: string | null
+          raw?: Json | null
+          source?: string | null
+          url?: string | null
+          verdict?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "claim_verifications_claim_id_fkey"
+            columns: ["claim_id"]
+            isOneToOne: false
+            referencedRelation: "claims"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      claims: {
+        Row: {
+          canonical_sig: string
+          canonical_text: string
+          date: string | null
+          embedding: string | null
+          entities: Json | null
+          event_type: string | null
+          first_seen: string | null
+          id: number
+          lang: string | null
+          last_seen: string | null
+          location_qid: string | null
+          number_bucket: string | null
+          number_value: number | null
+          support_count: number | null
+        }
+        Insert: {
+          canonical_sig: string
+          canonical_text: string
+          date?: string | null
+          embedding?: string | null
+          entities?: Json | null
+          event_type?: string | null
+          first_seen?: string | null
+          id?: number
+          lang?: string | null
+          last_seen?: string | null
+          location_qid?: string | null
+          number_bucket?: string | null
+          number_value?: number | null
+          support_count?: number | null
+        }
+        Update: {
+          canonical_sig?: string
+          canonical_text?: string
+          date?: string | null
+          embedding?: string | null
+          entities?: Json | null
+          event_type?: string | null
+          first_seen?: string | null
+          id?: number
+          lang?: string | null
+          last_seen?: string | null
+          location_qid?: string | null
+          number_bucket?: string | null
+          number_value?: number | null
+          support_count?: number | null
+        }
+        Relationships: []
+      }
       comment_reactions: {
         Row: {
           comment_id: string
@@ -200,6 +347,44 @@ export type Database = {
           total_chunks?: number | null
         }
         Relationships: []
+      }
+      feature_subscriptions: {
+        Row: {
+          created_at: string
+          email: string
+          feature_name: string
+          id: string
+          subscribed_at: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          feature_name?: string
+          id?: string
+          subscribed_at?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          feature_name?: string
+          id?: string
+          subscribed_at?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feature_subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       news_articles: {
         Row: {
