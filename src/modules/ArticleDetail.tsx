@@ -12,8 +12,6 @@ import {
   User as UserIcon,
   MapPin,
   Share2,
-  ThumbsUp,
-  ThumbsDown,
 } from 'lucide-react'
 import { Image } from '@/components/Image'
 import { NewsArticle } from '@/api/news'
