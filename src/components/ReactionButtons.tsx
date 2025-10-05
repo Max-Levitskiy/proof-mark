@@ -31,12 +31,12 @@ export function ReactionButtons({
   return (
     <div className="flex items-center gap-2">
       <Button
-        variant={userReaction === 'like' ? 'default' : 'outline'}
+        variant={userReaction === 'true' ? 'default' : 'outline'}
         size={buttonSize}
-        onClick={() => onReaction('like')}
+        onClick={() => onReaction('true')}
         disabled={isDisabled}
         className={
-          userReaction === 'like'
+          userReaction === 'true'
             ? 'bg-green-600 hover:bg-green-600 text-white border-green-600 cursor-default disabled:pointer-events-none'
             : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600 disabled:hover:bg-transparent disabled:hover:border-gray-700 disabled:cursor-not-allowed'
         }
@@ -46,12 +46,12 @@ export function ReactionButtons({
       </Button>
 
       <Button
-        variant={userReaction === 'dislike' ? 'default' : 'outline'}
+        variant={userReaction === 'fake' ? 'default' : 'outline'}
         size={buttonSize}
-        onClick={() => onReaction('dislike')}
+        onClick={() => onReaction('fake')}
         disabled={isDisabled}
         className={
-          userReaction === 'dislike'
+          userReaction === 'fake'
             ? 'bg-red-600 hover:bg-red-600 text-white border-red-600 cursor-default disabled:pointer-events-none'
             : 'border-gray-700 hover:bg-gray-800/50 hover:border-gray-600 disabled:hover:bg-transparent disabled:hover:border-gray-700 disabled:cursor-not-allowed'
         }

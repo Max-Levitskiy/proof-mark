@@ -25,8 +25,8 @@ export async function getArticleReactions(
     return { likeCount: 0, dislikeCount: 0, userReaction: null }
   }
 
-  const likeCount = data.filter((r) => r.reaction_type === 'like').length
-  const dislikeCount = data.filter((r) => r.reaction_type === 'dislike').length
+  const likeCount = data.filter((r) => r.reaction_type === 'true').length
+  const dislikeCount = data.filter((r) => r.reaction_type === 'fake').length
   const userReaction =
     userId && data.find((r) => r.user_id === userId)?.reaction_type
 
